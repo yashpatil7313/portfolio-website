@@ -38,13 +38,13 @@ The website features a modern dark-themed user interface with smooth navigation,
 
 ![Home Page](portfoliopageone.png)
 
+### Certificate Section
+
+![Certificate](portfoliopagetwo.png)
+
 ### Education Section
 
-![Education](portfoliopagetwo.png)
-
-### Certificates Section
-
-![Certificates](portfoliopagethree.png)
+![Education](portfoliopagethree.png)
 
 ### Contact Section
 
