@@ -1,68 +1,114 @@
-# 🌐 Personal Portfolio Website
+# 🌐 Yash Patil - Personal Portfolio Website
 
-A modern and responsive personal portfolio website showcasing my skills, projects, education, and career journey in Computer Science and Data Engineering.
+A modern and responsive portfolio website built to showcase my skills, projects, certifications, education, and professional journey as an aspiring SQL Developer and Data Engineer.
 
-## 🚀 About
+## 🚀 Overview
 
-This portfolio serves as a central hub for my professional profile, highlighting my technical expertise, projects, and achievements. It is designed to provide recruiters and visitors with a quick overview of my work and interests.
+This portfolio serves as my digital presence, providing recruiters, developers, and professionals with an overview of my technical skills, academic background, certifications, and project experience.
+
+The website features a modern dark-themed user interface with smooth navigation, interactive sections, and responsive design for both desktop and mobile devices.
 
 ## ✨ Features
 
-- Responsive and modern UI
-- About Me section
-- Technical Skills showcase
-- Featured Projects
-- Education details
+- Modern Dark UI Design
+- Fully Responsive Layout
+- Professional Landing Page
+- About Me Section
+- Education Timeline
+- Project Showcase
+- Certifications Section
+- Resume Download
+- GitHub & LinkedIn Integration
 - Contact Information
-- GitHub and LinkedIn links
-- Resume download option
-- Light and Dark Mode support
+- Light/Dark Theme Toggle
 
-## 🛠️ Technologies Used
+## 🛠️ Tech Stack
 
 - React.js
 - JavaScript
 - HTML5
-- CSS3 / Tailwind CSS
-- Git & GitHub
+- CSS3
+- Tailwind CSS
+- Git
+- GitHub
+
+## 📸 Screenshots
+
+### Home Page
+
+![Home Page](home-page.png)
+
+### Education Section
+
+![Education](education-page.png)
+
+### Certificates Section
+
+![Certificates](certificates-page.png)
+
+### Contact Section
+
+![Contact](contact-page.png)
+
+## 🎓 Education
+
+**Bachelor of Technology (B.Tech)**  
+Computer Science and Design
+
+**Maharashtra Institute of Technology (MIT)**
+
+Expected Graduation: **2027**
 
 ## 📂 Featured Projects
 
 ### 🤖 AI Resume Analyzer
-**Description:** Developed an AI-powered resume analysis application that evaluates resumes, calculates ATS compatibility scores, extracts skills, identifies skill gaps, and provides personalized improvement suggestions.
 
-**Technologies:** Python, PostgreSQL, React, FastAPI, AI/NLP
+An AI-powered application that analyzes resumes, calculates ATS compatibility scores, extracts technical skills, identifies skill gaps, and provides improvement suggestions.
+
+**Technologies Used:**
+- Python
+- PostgreSQL
+- React
+- FastAPI
+- NLP
+
+---
 
 ### 📊 Retail Sales Analysis using SQL
-**Description:** Analyzed retail sales data using SQL queries to generate business insights and perform data cleaning.
 
-**Technologies:** SQL, MySQL
+A SQL-based business analysis project focused on data cleaning, querying, and generating insights from retail sales datasets.
 
-## 🎓 Education
+**Technologies Used:**
+- SQL
+- MySQL
 
-**B.Tech in Computer Science and Design**  
-Maharashtra Institute of Technology (MIT)  
-Expected Graduation: 2027
+## 🏆 Certifications
+
+- SQL (Intermediate) – HackerRank
+- Python Certificate
+- 30-Days SQL Micro Course
+- Software Testing Techniques
+- Full Stack Development Learning Program
 
 ## 🎯 Career Objective
 
-Aspiring Data Engineer with a strong foundation in SQL, Python, Database Management, and Data Analytics. Passionate about building data-driven solutions and continuously learning new technologies.
+I am passionate about Data Engineering, Database Management, SQL, Python, and Analytics. My goal is to build scalable data-driven solutions and develop expertise in modern data technologies while continuously learning and improving my technical skills.
+
+## 📬 Contact
+
+📧 Email: yashrspatil7313@gmail.com
+
+📍 Maharashtra, India
 
 ## 🔗 Connect With Me
 
 - GitHub: https://github.com/yashpatil7313
-- LinkedIn: https://www.linkedin.com/in/yash-patil-468276352/
-- Email: yashrpatil2005@gmail.com
+- LinkedIn: Add Your LinkedIn Profile Link
 
 ## 🌍 Live Demo
 
-Add your portfolio website link here after deployment.
-https://portfolio-two-virid-76.vercel.app
-
-## 📄 License
-
-This project is open source and available under the MIT License.
+Add your deployed portfolio link here.
 
 ---
 
-⭐ If you like this project, feel free to star the repository!
+⭐ If you found this project interesting, feel free to star the repository.
