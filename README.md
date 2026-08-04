@@ -50,7 +50,7 @@ The website features a modern dark-themed user interface with smooth navigation,
 
 ![Contact](contact-page.png)
 
-## 🎓 Education
+## 🎓 Education 
 
 **Bachelor of Technology (B.Tech)**  
 Computer Science and Design
