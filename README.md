@@ -36,7 +36,7 @@ The website features a modern dark-themed user interface with smooth navigation,
 
 ### Home Page
 
-![Home Page](home-page.png)
+![Home Page](portfoliopageone.png)
 
 ### Education Section
 
