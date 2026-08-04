@@ -40,11 +40,11 @@ The website features a modern dark-themed user interface with smooth navigation,
 
 ### Education Section
 
-![Education](education-page.png)
+![Education](portfoliopagetwo.png)
 
 ### Certificates Section
 
-![Certificates](certificates-page.png)
+![Certificates](portfoliopagethree.png)
 
 ### Contact Section
 
