@@ -103,11 +103,12 @@ I am passionate about Data Engineering, Database Management, SQL, Python, and An
 ## 🔗 Connect With Me
 
 - GitHub: https://github.com/yashpatil7313
-- LinkedIn: Add Your LinkedIn Profile Link
+- LinkedIn: https://www.linkedin.com/in/yash-patil-468276352/
 
 ## 🌍 Live Demo
 
 Add your deployed portfolio link here.
+https://portfolio-two-virid-76.vercel.app
 
 ---
 
