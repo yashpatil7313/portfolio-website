@@ -1,0 +1,249 @@
+@import url("https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap");
+
+:root {
+  font-family: "Geist", sans-serif;
+
+  font-optical-sizing: auto;
+  font-style: normal;
+  line-height: 1.5;
+  scroll-behavior: smooth;
+  color-scheme: dark;
+  color: var(--textColor);
+  background-color: var(--backgroundColor);
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  --accentColor: #8b5cf6;
+  --backgroundColor: #08051a;
+  --textColor: #f5f3ff;
+  --surfaceColor: rgba(15, 23, 42, 0.62);
+  --mutedTextColor: #cbd5e1;
+  --vh: 100vh;
+  --vh-dynamic: 100dvh;
+  --safe-top: env(safe-area-inset-top, 0);
+  --safe-bottom: env(safe-area-inset-bottom, 0);
+  --safe-left: env(safe-area-inset-left, 0);
+  --safe-right: env(safe-area-inset-right, 0);
+}
+:root[data-theme="light"] {
+  color-scheme: light;
+  --accentColor: #6d28d9;
+  --backgroundColor: #f7f8ff;
+  --textColor: #172554;
+  --surfaceColor: rgba(255, 255, 255, 0.84);
+  --mutedTextColor: #475569;
+}
+
+@supports (height: 100dvh) {
+  :root {
+    --vh: 100dvh;
+  }
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Geist", sans-serif;
+}
+body {
+  overflow: hidden;
+}
+a {
+  color: inherit;
+  text-decoration: inherit;
+}
+a:hover {
+  color: var(--accentColor);
+}
+main {
+  opacity: 1;
+  transition: 0.3s;
+}
+.main-active {
+  opacity: 0;
+  animation: fadeIn 1s 1;
+  animation-fill-mode: forwards;
+}
+@keyframes fadeIn {
+  100% {
+    opacity: 1;
+  }
+}
+html {
+  padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  height: auto;
+  background-color: var(--backgroundColor);
+  flex-grow: 1;
+  --cWidth: calc(100% - 30px);
+  --cMaxWidth: 1920px;
+  max-width: 100vw;
+  overflow-x: hidden;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+.main-body {
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+:root[data-theme="light"] .header ul li {
+  color: #172554;
+}
+:root[data-theme="light"] .theme-toggle {
+  background: rgba(255, 255, 255, 0.88);
+  border-color: rgba(109, 40, 217, 0.42);
+}
+:root[data-theme="light"] .contact-flex,
+:root[data-theme="light"] .certificate-card {
+  background: var(--surfaceColor);
+}
+:root[data-theme="light"] .certificates-section {
+  background: linear-gradient(135deg, rgba(237, 233, 254, 0.92), rgba(255, 255, 255, 0.95));
+  box-shadow: 0 24px 80px rgba(79, 70, 229, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.95);
+}
+:root[data-theme="light"] .contact-details,
+:root[data-theme="light"] .certificate-card p,
+:root[data-theme="light"] .work-info p,
+:root[data-theme="light"] .about-me p {
+  color: var(--mutedTextColor);
+}
+:root[data-theme="light"] .work-flex::before,
+:root[data-theme="light"] .work-flex::after,
+:root[data-theme="light"] .work-box {
+  border-color: rgba(71, 85, 105, 0.28);
+  background-color: transparent;
+}
+:root[data-theme="light"] .landing-section,
+:root[data-theme="light"] .landing-info,
+:root[data-theme="light"] .character-model::before {
+  background-color: var(--backgroundColor);
+}
+:root[data-theme="light"] .landing-info-h2,
+:root[data-theme="light"] h2.landing-info-h2,
+:root[data-theme="light"] .avatar-thinking-text {
+  color: var(--textColor);
+}
+:root[data-theme="light"] .landing-info h3,
+:root[data-theme="light"] .landing-intro h2 {
+  text-shadow: none;
+}
+:root[data-theme="light"] .landing-chat-cta,
+:root[data-theme="light"] .avatar-thinking-core {
+  background: rgba(255, 255, 255, 0.9);
+  color: var(--textColor);
+  box-shadow: 0 8px 24px rgba(79, 70, 229, 0.16);
+}
+:root[data-theme="light"] .landing-info-h2::after {
+  background-image: linear-gradient(0deg, var(--backgroundColor) 40%, rgba(255, 255, 255, 0) 110%);
+}
+:root[data-theme="light"] .what-content::before,
+:root[data-theme="light"] .what-corner::before,
+:root[data-theme="light"] .what-content::after,
+:root[data-theme="light"] .what-corner::after {
+  border-color: var(--accentColor);
+}
+:root[data-theme="light"] .what-arrow,
+:root[data-theme="light"] .what-arrow::before {
+  border-color: var(--textColor);
+}
+:root[data-theme="light"] .what-tags {
+  background-color: rgba(109, 40, 217, 0.1);
+  border-color: rgba(109, 40, 217, 0.25);
+}
+:root[data-theme="light"] .work-scroll-track {
+  background: rgba(30, 41, 59, 0.15);
+}
+:root[data-theme="light"] .work-info p {
+  color: var(--mutedTextColor);
+}
+:root[data-theme="light"] .career-section h2 {
+  background: linear-gradient(0deg, #6d28d9, #1e3a8a);
+  background-clip: text;
+  -webkit-background-clip: text;
+}
+
+.container-main {
+  width: 100%;
+  margin: auto;
+  position: relative;
+}
+.container1 {
+  width: var(--cWidth);
+  height: var(--vh);
+  margin: auto;
+  position: relative;
+}
+.split-line {
+  overflow: hidden;
+}
+.split-h2 {
+  overflow: hidden;
+  display: flex;
+  white-space: nowrap;
+  flex-wrap: nowrap;
+}
+
+.techstack {
+  width: 100%;
+  position: relative;
+  height: var(--vh);
+  margin: auto;
+  margin-top: 260px;
+  margin-bottom: 60px;
+  min-height: 500px;
+  isolation: isolate;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.techstack h2 {
+  font-size: 80px;
+  text-align: center;
+  position: absolute;
+  width: 100%;
+  top: 80px;
+  left: 0;
+  font-weight: 400;
+  text-transform: uppercase;
+  pointer-events: none;
+  z-index: 2;
+}
+
+@media screen and (min-width: 768px) {
+  body {
+    --cWidth: 94%;
+  }
+}
+@media screen and (max-width: 900px) {
+  .techstack h2 {
+    font-size: 40px;
+  }
+}
+@media screen and (max-width: 1024px) {
+  .techstack {
+    height: 50vh;
+    min-height: 300px;
+    margin-top: 60px;
+    margin-bottom: 40px;
+  }
+  .techstack h2 {
+    font-size: 28px;
+    top: 20px;
+  }
+}
+@media (pointer: coarse) {
+  .techstack canvas {
+    touch-action: pan-y !important;
+  }
+}
