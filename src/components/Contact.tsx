@@ -1,8 +1,20 @@
-import { MdArrowOutward, MdCopyright } from "react-icons/md";
+import { useState } from "react";
+import { MdArrowOutward, MdCopyright, MdCheck, MdContentCopy } from "react-icons/md";
 import { TbDownload } from "react-icons/tb";
 import "./styles/Contact.css";
 
 const Contact = () => {
+  const [copiedText, setCopiedText] = useState<string | null>(null);
+
+  const copyToClipboard = (text: string, label: string) => {
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(text).then(() => {
+        setCopiedText(label);
+        setTimeout(() => setCopiedText(null), 2000);
+      });
+    }
+  };
+
   return (
     <div className="contact-section section-container" id="contact">
       <div className="contact-container">
@@ -10,10 +22,34 @@ const Contact = () => {
         <div className="contact-flex">
           <div className="contact-box">
             <h4>Email</h4>
-            <a className="contact-email" href="mailto:yashrspatil7313@gmail.com" data-cursor="disable">
-              yashrspatil7313@gmail.com
-            </a>
-            <p className="contact-details">9359307313<br />Maharashtra, India</p>
+            <div className="contact-interactive-line">
+              <a className="contact-email" href="mailto:yashrspatil7313@gmail.com" data-cursor="disable">
+                yashrspatil7313@gmail.com
+              </a>
+              <button
+                type="button"
+                className="contact-copy-btn"
+                onClick={() => copyToClipboard("yashrspatil7313@gmail.com", "email")}
+                title="Copy email"
+                aria-label="Copy email address"
+              >
+                {copiedText === "email" ? <MdCheck className="copy-success" /> : <MdContentCopy />}
+                {copiedText === "email" && <span className="copy-tooltip">Copied!</span>}
+              </button>
+            </div>
+            <div className="contact-interactive-line">
+              <p className="contact-details">
+                <span
+                  className="contact-phone-clickable"
+                  onClick={() => copyToClipboard("9359307313", "phone")}
+                  title="Click to copy phone"
+                >
+                  9359307313 {copiedText === "phone" && <span className="copy-tooltip-inline">✓ Copied</span>}
+                </span>
+                <br />
+                Maharashtra, India
+              </p>
+            </div>
           </div>
           <div className="contact-box">
             <h4>Social</h4>

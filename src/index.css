@@ -247,3 +247,75 @@ body {
     touch-action: pan-y !important;
   }
 }
+
+/* Global Slim Glowing Scroll Progress Bar */
+.global-scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #3b82f6, #8b5cf6, #ec4899);
+  transform-origin: 0% 50%;
+  z-index: 10000;
+  box-shadow: 0 0 10px rgba(139, 92, 246, 0.7);
+  pointer-events: none;
+  transition: transform 0.08s ease-out;
+}
+
+/* Floating Glassmorphic Back-To-Top Button */
+.back-to-top-btn {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background: rgba(15, 23, 42, 0.75);
+  border: 1px solid rgba(139, 92, 246, 0.4);
+  color: #ddd6fe;
+  font-size: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 999;
+  backdrop-filter: blur(12px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35), 0 0 15px rgba(139, 92, 246, 0.2);
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(20px) scale(0.9);
+  transition: opacity 0.3s cubic-bezier(0.2, 0.8, 0.2, 1),
+              transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1),
+              background 0.25s ease,
+              border-color 0.25s ease,
+              color 0.25s ease;
+}
+
+.back-to-top-btn.visible {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0) scale(1);
+}
+
+.back-to-top-btn:hover {
+  background: rgba(139, 92, 246, 0.35);
+  border-color: rgba(192, 132, 252, 0.8);
+  color: #ffffff;
+  transform: translateY(-4px) scale(1.06);
+  box-shadow: 0 14px 36px rgba(0, 0, 0, 0.45), 0 0 24px rgba(139, 92, 246, 0.4);
+}
+
+:root[data-theme="light"] .back-to-top-btn {
+  background: rgba(255, 255, 255, 0.9);
+  border-color: rgba(109, 40, 217, 0.35);
+  color: #6d28d9;
+  box-shadow: 0 8px 24px rgba(109, 40, 217, 0.15);
+}
+
+:root[data-theme="light"] .back-to-top-btn:hover {
+  background: rgba(109, 40, 217, 0.15);
+  border-color: rgba(109, 40, 217, 0.6);
+  color: #4c1d95;
+}
+

@@ -46,7 +46,7 @@ const Loading = ({ percent }: { percent: number }) => {
     <>
       <div className={`loading-header ${clicked ? "loader-hidden" : ""}`}>
         <a href="/#" className="loader-title" data-cursor="disable">
-          RS
+          YP
         </a>
         <div className={`loaderGame ${clicked && "loader-out"}`}>
           <div className="loaderGame-container">

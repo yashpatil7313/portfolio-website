@@ -105,7 +105,11 @@ const Work = () => {
                 </div>
                 {project.description && <p>{project.description}</p>}
                 <h4>Tools and features</h4>
-                <p>{project.tech}</p>
+                <div className="work-tech-pills">
+                  {project.tech.split(",").map((t, tIdx) => (
+                    <span className="work-tech-tag" key={tIdx}>{t.trim()}</span>
+                  ))}
+                </div>
                 {"link" in project && project.link && (
                   <a
                     href={project.link}

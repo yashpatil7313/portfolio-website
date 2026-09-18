@@ -1,6 +1,7 @@
 import { PropsWithChildren, useEffect, useState } from "react";
 import "./styles/Landing.css";
 import { useLoading } from "../context/LoadingProvider";
+import { scrollToTarget } from "./utils/smoothScroll";
 
 function useTypingEffect(text: string, delay: number, speed: number, enabled: boolean) {
   const [displayed, setDisplayed] = useState("");
@@ -27,15 +28,27 @@ const Landing = ({ children }: PropsWithChildren) => {
   return (
     <>
       <div className="landing-section" id="landingDiv">
+        <div className="landing-aurora-wrap" aria-hidden="true">
+          <div className="landing-aurora aurora-1" />
+          <div className="landing-aurora aurora-2" />
+          <div className="landing-aurora aurora-3" />
+        </div>
         <div className="landing-circle1"></div>
         <div className="landing-circle2"></div>
         <div className="landing-container">
           <div className="landing-intro">
-            <img
-              className="landing-profile-photo"
-              src="/images/yash-patil-profile.jpeg"
-              alt="Yash Patil"
-            />
+            <div className="landing-status-badge">
+              <span className="landing-status-dot"></span>
+              <span>Available for Opportunities · CSD '27</span>
+            </div>
+            <div className="landing-profile-wrap">
+              <img
+                className="landing-profile-photo"
+                src="/images/yash-patil-profile.jpeg"
+                alt="Yash Patil"
+              />
+              <div className="landing-profile-ring"></div>
+            </div>
             <h2>Hello! I'm</h2>
             <h1 className="landing-typed-name" aria-label="Yash Patil">
               {name}<span className="typing-cursor">|</span>
@@ -59,13 +72,12 @@ const Landing = ({ children }: PropsWithChildren) => {
               type="button"
               data-cursor="disable"
               onClick={() => {
-                document
-                  .getElementById("about")
-                  ?.scrollIntoView({ behavior: "smooth" });
+                scrollToTarget("#about", -50);
               }}
             >
               <span className="landing-chat-dot" />
-              <span>Scroll to explore!</span>
+              <span>Scroll to explore</span>
+              <span className="landing-scroll-arrow">↓</span>
             </button>
           </div>
         </div>

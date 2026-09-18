@@ -1,18 +1,28 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { gsap } from "gsap";
 import { MdDarkMode, MdLightMode } from "react-icons/md";
 import HoverLinks from "./HoverLinks";
+import { scrollToTarget } from "./utils/smoothScroll";
 import "./styles/Navbar.css";
 
 gsap.registerPlugin(ScrollTrigger);
 
 export const smoother = { paused: (_v: boolean) => {} };
 
+const NAV_ITEMS = [
+  { id: "about", label: "ABOUT" },
+  { id: "work", label: "WORK" },
+  { id: "certificates", label: "CERTIFICATES" },
+  { id: "contact", label: "CONTACT" },
+];
+
 const Navbar = () => {
   const [isLightTheme, setIsLightTheme] = useState(() =>
     localStorage.getItem("theme") === "light"
   );
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [activeSection, setActiveSection] = useState("");
 
   useEffect(() => {
     document.documentElement.dataset.theme = isLightTheme ? "light" : "dark";
@@ -20,48 +30,65 @@ const Navbar = () => {
   }, [isLightTheme]);
 
   useEffect(() => {
-    const links = document.querySelectorAll(".header ul a");
-    links.forEach((elem) => {
-      const element = elem as HTMLAnchorElement;
-      element.addEventListener("click", (e) => {
-        if (window.innerWidth > 1024) {
-          const href = element.getAttribute("data-href");
-          if (href && href.startsWith("#")) {
-            e.preventDefault();
-            const target = document.querySelector(href);
-            target?.scrollIntoView({ behavior: "smooth", block: "start" });
+    const handleScroll = () => {
+      const scrollY = window.scrollY;
+      setIsScrolled(scrollY > 40);
+
+      // Detect active section based on scroll position
+      const triggerPos = scrollY + 280;
+      let current = "";
+      for (const item of NAV_ITEMS) {
+        const el = document.getElementById(item.id);
+        if (el) {
+          const top = el.offsetTop;
+          const height = el.offsetHeight;
+          if (triggerPos >= top && triggerPos < top + height) {
+            current = item.id;
           }
         }
-      });
-    });
+      }
+      setActiveSection(current);
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll();
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  const handleNavClick = useCallback((e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
+    e.preventDefault();
+    scrollToTarget(`#${id}`, -60);
+  }, []);
+
+  const handleTitleClick = useCallback((e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    scrollToTarget(0, 0);
+  }, []);
+
   return (
     <>
-      <div className="header">
-        <a href="/#" className="navbar-title" data-cursor="disable">
+      <div className={`header ${isScrolled ? "header-scrolled" : ""}`}>
+        <a
+          href="/#"
+          className="navbar-title"
+          data-cursor="disable"
+          onClick={handleTitleClick}
+        >
           YP
         </a>
         <ul>
-          <li>
-            <a data-href="#about" href="#about">
-              <HoverLinks text="ABOUT" />
-            </a>
-          </li>
-          <li>
-            <a data-href="#work" href="#work">
-              <HoverLinks text="WORK" />
-            </a>
-          </li>
-          <li>
-            <a data-href="#certificates" href="#certificates">
-              <HoverLinks text="CERTIFICATES" />
-            </a>
-          </li>
-          <li>
-            <a data-href="#contact" href="#contact">
-              <HoverLinks text="CONTACT" />
-            </a>
-          </li>
+          {NAV_ITEMS.map((item) => (
+            <li key={item.id}>
+              <a
+                data-href={`#${item.id}`}
+                href={`#${item.id}`}
+                className={activeSection === item.id ? "active-nav-item" : ""}
+                onClick={(e) => handleNavClick(e, item.id)}
+              >
+                <HoverLinks text={item.label} />
+              </a>
+            </li>
+          ))}
         </ul>
         <button
           className="theme-toggle"

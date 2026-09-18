@@ -2,72 +2,111 @@ import { useEffect, useRef } from "react";
 import "./styles/Cursor.css";
 
 const Cursor = () => {
-  const cursorRef = useRef<HTMLDivElement>(null);
-  useEffect(() => {
-    const cursor = cursorRef.current;
-    if (!cursor) return;
+  const dotRef = useRef<HTMLDivElement>(null);
+  const ringRef = useRef<HTMLDivElement>(null);
+  const wrapperRef = useRef<HTMLDivElement>(null);
 
-    let hover = false;
-    const mousePos = { x: 0, y: 0 };
-    const cursorPos = { x: 0, y: 0 };
+  useEffect(() => {
+    // Only run cursor on pointer devices
+    if (window.matchMedia("(pointer: coarse)").matches) return;
+
+    const dot = dotRef.current;
+    const ring = ringRef.current;
+    const wrapper = wrapperRef.current;
+    if (!dot || !ring || !wrapper) return;
+
+    let mouseX = -100;
+    let mouseY = -100;
+    let ringX = -100;
+    let ringY = -100;
+    let isVisible = false;
     let rafId: number;
 
     const onMouseMove = (e: MouseEvent) => {
-      mousePos.x = e.clientX;
-      mousePos.y = e.clientY;
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+
+      if (!isVisible) {
+        isVisible = true;
+        dot.classList.remove("cursor-hidden");
+        ring.classList.remove("cursor-hidden");
+        ringX = mouseX;
+        ringY = mouseY;
+      }
+
+      dot.style.transform = `translate3d(${mouseX}px, ${mouseY}px, 0)`;
+    };
+
+    const onMouseLeave = () => {
+      isVisible = false;
+      dot.classList.add("cursor-hidden");
+      ring.classList.add("cursor-hidden");
     };
 
     const loop = () => {
-      if (!hover) {
-        const ease = 0.12;
-        cursorPos.x += (mousePos.x - cursorPos.x) * ease;
-        cursorPos.y += (mousePos.y - cursorPos.y) * ease;
-        cursor.style.transform = `translate(${cursorPos.x}px, ${cursorPos.y}px)`;
+      if (isVisible) {
+        const ease = 0.16;
+        ringX += (mouseX - ringX) * ease;
+        ringY += (mouseY - ringY) * ease;
+        ring.style.transform = `translate3d(${ringX}px, ${ringY}px, 0)`;
       }
       rafId = requestAnimationFrame(loop);
     };
 
-    document.addEventListener("mousemove", onMouseMove, { passive: true });
+    window.addEventListener("mousemove", onMouseMove, { passive: true });
+    document.addEventListener("mouseleave", onMouseLeave);
     rafId = requestAnimationFrame(loop);
 
-    const onMouseOver = (e: Event) => {
-      const element = e.currentTarget as HTMLElement;
-      const rect = element.getBoundingClientRect();
-      if (element.dataset.cursor === "icons") {
-        cursor.classList.add("cursor-icons");
-        cursorPos.x = rect.left;
-        cursorPos.y = rect.top;
-        cursor.style.transform = `translate(${rect.left}px, ${rect.top}px)`;
-        cursor.style.setProperty("--cursorH", `${rect.height}px`);
-        hover = true;
+    // Hover state management
+    const handleMouseOver = (e: MouseEvent) => {
+      const target = e.target as HTMLElement | null;
+      if (!target) return;
+
+      const card = target.closest(".certificate-card, .work-box, .what-content");
+      if (card) {
+        ring.classList.add("cursor-card");
+        dot.classList.add("cursor-hover");
+        return;
       }
-      if (element.dataset.cursor === "disable") {
-        cursor.classList.add("cursor-disable");
+
+      const interactive = target.closest("a, button, .theme-toggle, .what-tags, [data-cursor]");
+      if (interactive) {
+        ring.classList.add("cursor-hover");
+        dot.classList.add("cursor-hover");
       }
     };
 
-    const onMouseOut = () => {
-      cursor.classList.remove("cursor-disable", "cursor-icons");
-      hover = false;
+    const handleMouseOut = (e: MouseEvent) => {
+      const target = e.target as HTMLElement | null;
+      if (!target) return;
+
+      const card = target.closest(".certificate-card, .work-box, .what-content");
+      const interactive = target.closest("a, button, .theme-toggle, .what-tags, [data-cursor]");
+
+      if (card || interactive) {
+        ring.classList.remove("cursor-hover", "cursor-card");
+        dot.classList.remove("cursor-hover");
+      }
     };
 
-    const cursorElements = document.querySelectorAll("[data-cursor]");
-    cursorElements.forEach((el) => {
-      el.addEventListener("mouseover", onMouseOver);
-      el.addEventListener("mouseout", onMouseOut);
-    });
+    document.addEventListener("mouseover", handleMouseOver, { passive: true });
+    document.addEventListener("mouseout", handleMouseOut, { passive: true });
 
     return () => {
       cancelAnimationFrame(rafId);
-      document.removeEventListener("mousemove", onMouseMove);
-      cursorElements.forEach((el) => {
-        el.removeEventListener("mouseover", onMouseOver);
-        el.removeEventListener("mouseout", onMouseOut);
-      });
+      window.removeEventListener("mousemove", onMouseMove);
+      document.removeEventListener("mouseleave", onMouseLeave);
+      document.removeEventListener("mouseover", handleMouseOver);
+      document.removeEventListener("mouseout", handleMouseOut);
     };
   }, []);
 
-  return <div className="cursor-main" ref={cursorRef}></div>;
+  return (
+    <div className="cursor-wrapper" ref={wrapperRef}>
+      <div className="cursor-dot cursor-hidden" ref={dotRef} />
+      <div className="cursor-ring cursor-hidden" ref={ringRef} />
+    </div>
+  );
 };
 
 export default Cursor;

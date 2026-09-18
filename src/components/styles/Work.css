@@ -102,18 +102,53 @@
 .work-info > p {
   width: 90%;
 }
+.work-tech-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 8px;
+  margin-bottom: 14px;
+}
+.work-tech-tag {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 8px;
+  background: rgba(139, 92, 246, 0.12);
+  border: 1px solid rgba(139, 92, 246, 0.28);
+  color: #ddd6fe;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.03em;
+  transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+}
+.work-tech-tag:hover {
+  transform: translateY(-2px);
+  border-color: rgba(192, 132, 252, 0.7);
+  background: rgba(139, 92, 246, 0.22);
+}
 .work-project-link {
   display: inline-flex;
+  align-items: center;
+  gap: 6px;
   margin-top: 10px;
   margin-right: 16px;
+  padding: 8px 16px;
+  border-radius: 10px;
+  background: rgba(139, 92, 246, 0.15);
+  border: 1px solid rgba(139, 92, 246, 0.35);
   font-size: 12px;
+  font-weight: 600;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--accentColor);
+  color: #f5f3ff;
   text-decoration: none;
+  transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease;
 }
 .work-project-link:hover {
-  text-decoration: underline;
+  transform: translateY(-2px);
+  background: rgba(139, 92, 246, 0.3);
+  border-color: rgba(167, 139, 250, 0.75);
+  color: #ffffff;
 }
 .work-image {
   display: flex;
