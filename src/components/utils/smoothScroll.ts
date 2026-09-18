@@ -1,5 +1,5 @@
 import Lenis from "lenis";
-import gsap from "gsap";
+import "lenis/dist/lenis.css";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 let lenisInstance: Lenis | null = null;
@@ -9,27 +9,32 @@ export function initSmoothScroll(): Lenis | null {
   if (lenisInstance) return lenisInstance;
 
   lenisInstance = new Lenis({
-    duration: 1.1,
-    easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-    smoothWheel: true,
+    autoRaf: true,
+    lerp: 0.085,
     wheelMultiplier: 0.95,
-    touchMultiplier: 1.4,
+    touchMultiplier: 1.0,
+    smoothWheel: true,
+    syncTouch: false,
   });
 
   lenisInstance.on("scroll", ScrollTrigger.update);
 
-  const tickerCallback = (time: number) => {
-    lenisInstance?.raf(time * 1000);
-  };
-
-  gsap.ticker.add(tickerCallback);
-  gsap.ticker.lagSmoothing(0);
+  // Expose global instance for debugging / access
+  (window as unknown as { lenis: Lenis }).lenis = lenisInstance;
 
   return lenisInstance;
 }
 
 export function getLenis(): Lenis | null {
   return lenisInstance;
+}
+
+export function stopSmoothScroll() {
+  lenisInstance?.stop();
+}
+
+export function startSmoothScroll() {
+  lenisInstance?.start();
 }
 
 export function scrollToTarget(target: number | string | HTMLElement, offset: number = -30) {
