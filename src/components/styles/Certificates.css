@@ -207,18 +207,84 @@
   color: #ffffff;
 }
 
+/* Light Theme Support */
+:root[data-theme="light"] .certificates-section {
+  background: linear-gradient(135deg, rgba(243, 232, 255, 0.75), rgba(255, 255, 255, 0.95));
+  border-color: rgba(139, 92, 246, 0.28);
+  box-shadow: 0 20px 60px rgba(124, 58, 237, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.8);
+}
+
+:root[data-theme="light"] .certificate-card {
+  background: rgba(255, 255, 255, 0.92);
+  border-color: rgba(139, 92, 246, 0.22);
+  box-shadow: 0 8px 24px rgba(124, 58, 237, 0.08);
+}
+
+:root[data-theme="light"] .cert-badge {
+  background: rgba(139, 92, 246, 0.1);
+  border-color: rgba(139, 92, 246, 0.2);
+  color: #7c3aed;
+}
+
+:root[data-theme="light"] .cert-icon-wrapper {
+  background: rgba(139, 92, 246, 0.08);
+  border-color: rgba(139, 92, 246, 0.15);
+}
+
+:root[data-theme="light"] .cert-arrow-wrap {
+  background: rgba(139, 92, 246, 0.1);
+}
+
+:root[data-theme="light"] .certificate-arrow {
+  color: #7c3aed;
+}
+
 @media screen and (max-width: 900px) {
   .certificates-section {
-    margin: 80px auto;
-    padding: 36px 20px;
+    margin: 60px auto;
+    padding: 32px 18px;
     border-radius: 24px;
+    width: var(--cWidth);
+    box-sizing: border-box;
+  }
+  .certificates-header {
+    margin-bottom: 24px;
+  }
+  .certificates-section h2 {
+    font-size: clamp(30px, 6vw, 42px);
+  }
+  .certificates-subtitle {
+    font-size: 14px;
+    line-height: 1.5;
   }
   .certificates-grid {
     grid-template-columns: 1fr;
     gap: 12px;
+    perspective: none !important;
   }
   .certificate-card {
     padding: 16px 18px;
     min-height: auto;
+    transform: none !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    display: flex !important;
+    background: rgba(15, 23, 42, 0.75);
+  }
+  :root[data-theme="light"] .certificate-card {
+    background: rgba(255, 255, 255, 0.94) !important;
+    border-color: rgba(139, 92, 246, 0.25);
+  }
+  .certificate-card h3 {
+    font-size: 15px;
+    line-height: 1.35;
+  }
+  .certificate-card p {
+    font-size: 12.5px;
+  }
+  .cert-icon-wrapper {
+    width: 42px;
+    height: 42px;
+    font-size: 22px;
   }
 }

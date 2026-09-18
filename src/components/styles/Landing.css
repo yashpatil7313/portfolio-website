@@ -52,6 +52,26 @@
     width: 100%;
     z-index: 5;
     min-height: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  .landing-status-badge {
+    margin-left: auto !important;
+    margin-right: auto !important;
+    align-self: center;
+  }
+  .landing-profile-wrap {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    align-self: center;
+  }
+  .landing-profile-photo {
+    margin: 0 auto 12px !important;
   }
   .landing-avatar-slot {
     flex: 0 0 32vh;
@@ -448,7 +468,7 @@
 .landing-profile-photo {
   width: 88px;
   height: 88px;
-  margin: 0 0 16px;
+  margin: 0 auto 16px;
   display: block;
   object-fit: cover;
   object-position: 59% 33%;
@@ -901,8 +921,10 @@ h2.landing-info-h2 {
 /* Profile Photo Wrap with 3D tilt and aura */
 .landing-profile-wrap {
   position: relative;
-  display: inline-block;
-  margin-bottom: 12px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto 12px;
   transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 

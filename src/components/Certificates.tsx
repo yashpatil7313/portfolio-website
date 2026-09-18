@@ -82,20 +82,30 @@ const Certificates = () => {
     const grid = gridRef.current;
     if (!grid) return;
 
+    // On mobile devices, ensure cards are immediately visible without risking ScrollTrigger delays
+    if (typeof window !== "undefined" && window.innerWidth <= 768) {
+      const cards = grid.querySelectorAll<HTMLElement>(".certificate-card");
+      cards.forEach((c) => {
+        c.style.opacity = "1";
+        c.style.transform = "none";
+        c.style.visibility = "visible";
+      });
+      return;
+    }
+
     const cards = grid.querySelectorAll(".certificate-card");
     const anim = gsap.fromTo(
       cards,
-      { opacity: 0, y: 40, scale: 0.96 },
+      { opacity: 0, y: 30 },
       {
         opacity: 1,
         y: 0,
-        scale: 1,
-        duration: 0.7,
-        stagger: 0.08,
+        duration: 0.6,
+        stagger: 0.06,
         ease: "power2.out",
         scrollTrigger: {
           trigger: grid,
-          start: "top 80%",
+          start: "top 85%",
           toggleActions: "play none none none",
         },
       }
