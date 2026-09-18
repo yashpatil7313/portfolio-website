@@ -37,11 +37,14 @@ export function startSmoothScroll() {
   lenisInstance?.start();
 }
 
-export function scrollToTarget(target: number | string | HTMLElement, offset: number = -30) {
+export function scrollToTarget(target: number | string | HTMLElement, offset?: number) {
+  const isMobile = typeof window !== "undefined" && window.innerWidth <= 768;
+  const resolvedOffset = offset !== undefined ? offset : (isMobile ? -70 : -30);
+
   if (lenisInstance) {
     lenisInstance.scrollTo(target, {
-      offset,
-      duration: 1.4,
+      offset: resolvedOffset,
+      duration: isMobile ? 1.0 : 1.3,
       easing: (t) => 1 - Math.pow(1 - t, 4),
     });
   } else {
@@ -49,7 +52,10 @@ export function scrollToTarget(target: number | string | HTMLElement, offset: nu
       window.scrollTo({ top: target, behavior: "smooth" });
     } else {
       const el = typeof target === "string" ? document.querySelector(target) : target;
-      el?.scrollIntoView({ behavior: "smooth", block: "start" });
+      if (el) {
+        const topPos = (el as HTMLElement).getBoundingClientRect().top + window.pageYOffset + resolvedOffset;
+        window.scrollTo({ top: Math.max(0, topPos), behavior: "smooth" });
+      }
     }
   }
 

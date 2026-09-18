@@ -181,6 +181,14 @@
     color: #cbd5e1;
     margin-bottom: 20px;
   }
+  :root[data-theme="light"] .about-me {
+    background: rgba(255, 255, 255, 0.92);
+    border-color: rgba(139, 92, 246, 0.25);
+    box-shadow: 0 10px 30px rgba(124, 58, 237, 0.08);
+  }
+  :root[data-theme="light"] .about-me p {
+    color: #334155;
+  }
   .about-stats-grid {
     grid-template-columns: 1fr;
     gap: 10px;

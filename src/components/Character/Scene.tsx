@@ -69,6 +69,10 @@ const Scene = () => {
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, mobile ? 1.5 : 1.2));
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
     renderer.toneMappingExposure = 1;
+    if (mobile || "ontouchstart" in window || navigator.maxTouchPoints > 0) {
+      renderer.domElement.style.pointerEvents = "none";
+      renderer.domElement.style.touchAction = "pan-y";
+    }
     canvasDiv.current.appendChild(renderer.domElement);
 
     const camera = new THREE.PerspectiveCamera(30, aspect, 0.1, 100);

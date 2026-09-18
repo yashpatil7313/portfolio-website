@@ -19,50 +19,56 @@ interface WorkProject {
 
 const Work = () => {
   useGSAP(() => {
-  let translateX: number = 0;
+    if (typeof window === "undefined" || window.innerWidth <= 768) return;
 
-  function setTranslateX() {
-    const box = document.getElementsByClassName("work-box");
-    const rectLeft = document
-      .querySelector(".work-container")!
-      .getBoundingClientRect().left;
-    const rect = box[0].getBoundingClientRect();
-    const parentWidth = box[0].parentElement!.getBoundingClientRect().width;
-    let padding: number =
-      parseInt(window.getComputedStyle(box[0]).padding) / 2;
-    translateX = rect.width * box.length - (rectLeft + parentWidth) + padding;
-  }
+    let translateX: number = 0;
 
-  setTranslateX();
+    function setTranslateX() {
+      const box = document.getElementsByClassName("work-box");
+      if (!box || box.length === 0) return;
+      const container = document.querySelector(".work-container");
+      if (!container || !box[0].parentElement) return;
 
-  let timeline = gsap.timeline({
-    scrollTrigger: {
-      trigger: ".work-section",
-      start: "top top",
-      end: `+=${translateX}`, // Use actual scroll width
-      scrub: true,
-      pin: true,
-      id: "work",
-    },
-  });
+      const rectLeft = container.getBoundingClientRect().left;
+      const rect = box[0].getBoundingClientRect();
+      const parentWidth = box[0].parentElement.getBoundingClientRect().width;
+      let padding: number =
+        parseInt(window.getComputedStyle(box[0]).padding) / 2;
+      translateX = rect.width * box.length - (rectLeft + parentWidth) + padding;
+    }
 
-  timeline.to(".work-flex", {
-    x: -translateX,
-    ease: "none",
-  });
+    setTranslateX();
 
-  // Scroll progress bar
-  timeline.to(".work-scroll-progress", {
-    scaleX: 1,
-    ease: "none",
-  }, 0);
+    let timeline = gsap.timeline({
+      scrollTrigger: {
+        trigger: ".work-section",
+        start: "top top",
+        end: `+=${translateX}`,
+        scrub: true,
+        pin: true,
+        id: "work",
+      },
+    });
 
-  // Clean up (optional, good practice)
-  return () => {
-    timeline.kill();
-    ScrollTrigger.getById("work")?.kill();
-  };
-}, []);
+    timeline.to(".work-flex", {
+      x: -translateX,
+      ease: "none",
+    });
+
+    timeline.to(
+      ".work-scroll-progress",
+      {
+        scaleX: 1,
+        ease: "none",
+      },
+      0
+    );
+
+    return () => {
+      timeline.kill();
+      ScrollTrigger.getById("work")?.kill();
+    };
+  }, []);
 
   const handleBtnClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     const el = e.currentTarget;

@@ -1,7 +1,8 @@
 import { useEffect, useState, useCallback } from "react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { gsap } from "gsap";
-import { MdDarkMode, MdLightMode } from "react-icons/md";
+import { MdDarkMode, MdLightMode, MdMenu, MdClose } from "react-icons/md";
+import { TbDownload } from "react-icons/tb";
 import HoverLinks from "./HoverLinks";
 import { scrollToTarget } from "./utils/smoothScroll";
 import "./styles/Navbar.css";
@@ -23,6 +24,7 @@ const Navbar = () => {
   );
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState("");
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     document.documentElement.dataset.theme = isLightTheme ? "light" : "dark";
@@ -55,13 +57,27 @@ const Navbar = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // Lock body scroll when mobile menu is open
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      document.body.classList.add("mobile-menu-open");
+    } else {
+      document.body.classList.remove("mobile-menu-open");
+    }
+    return () => {
+      document.body.classList.remove("mobile-menu-open");
+    };
+  }, [isMobileMenuOpen]);
+
   const handleNavClick = useCallback((e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
     e.preventDefault();
+    setIsMobileMenuOpen(false);
     scrollToTarget(`#${id}`, -60);
   }, []);
 
   const handleTitleClick = useCallback((e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
+    setIsMobileMenuOpen(false);
     scrollToTarget(0, 0);
   }, []);
 
@@ -75,7 +91,7 @@ const Navbar = () => {
 
   return (
     <>
-      <div className={`header ${isScrolled ? "header-scrolled" : ""}`}>
+      <header className={`header ${isScrolled ? "header-scrolled" : ""}`}>
         <a
           href="/#"
           className="navbar-title"
@@ -84,7 +100,9 @@ const Navbar = () => {
         >
           YP
         </a>
-        <ul>
+
+        {/* Desktop navigation */}
+        <ul className="desktop-nav-list">
           {NAV_ITEMS.map((item) => (
             <li key={item.id}>
               <a
@@ -98,17 +116,85 @@ const Navbar = () => {
             </li>
           ))}
         </ul>
-        <button
-          className={`theme-toggle ${isThemeRotating ? "theme-rotating" : ""}`}
-          type="button"
-          aria-label={isLightTheme ? "Switch to dark mode" : "Switch to light mode"}
-          title={isLightTheme ? "Dark mode" : "Light mode"}
-          onClick={handleToggleTheme}
-          data-cursor="disable"
-        >
-          {isLightTheme ? <MdDarkMode /> : <MdLightMode />}
-        </button>
-      </div>
+
+        <div className="header-actions">
+          <button
+            className={`theme-toggle ${isThemeRotating ? "theme-rotating" : ""}`}
+            type="button"
+            aria-label={isLightTheme ? "Switch to dark mode" : "Switch to light mode"}
+            title={isLightTheme ? "Dark mode" : "Light mode"}
+            onClick={handleToggleTheme}
+            data-cursor="disable"
+          >
+            {isLightTheme ? <MdDarkMode /> : <MdLightMode />}
+          </button>
+
+          {/* Mobile hamburger button */}
+          <button
+            className={`mobile-menu-toggle ${isMobileMenuOpen ? "active" : ""}`}
+            type="button"
+            aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
+            onClick={() => setIsMobileMenuOpen((prev) => !prev)}
+            data-cursor="disable"
+          >
+            {isMobileMenuOpen ? <MdClose /> : <MdMenu />}
+          </button>
+        </div>
+      </header>
+
+      {/* Mobile Sliding Glass Drawer */}
+      <div
+        className={`mobile-drawer-backdrop ${isMobileMenuOpen ? "open" : ""}`}
+        onClick={() => setIsMobileMenuOpen(false)}
+        aria-hidden="true"
+      />
+
+      <nav
+        className={`mobile-drawer ${isMobileMenuOpen ? "open" : ""}`}
+        aria-label="Mobile navigation"
+      >
+        <div className="mobile-drawer-header">
+          <span className="mobile-drawer-brand">YP · Yash Patil</span>
+          <button
+            className="mobile-drawer-close"
+            type="button"
+            onClick={() => setIsMobileMenuOpen(false)}
+            aria-label="Close menu"
+          >
+            <MdClose />
+          </button>
+        </div>
+
+        <ul className="mobile-nav-list">
+          {NAV_ITEMS.map((item, idx) => (
+            <li key={item.id} style={{ animationDelay: `${idx * 0.06}s` }}>
+              <a
+                href={`#${item.id}`}
+                className={`mobile-nav-item ${activeSection === item.id ? "active" : ""}`}
+                onClick={(e) => handleNavClick(e, item.id)}
+              >
+                <span className="mobile-nav-num">0{idx + 1}</span>
+                <span className="mobile-nav-text">{item.label}</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+
+        <div className="mobile-drawer-footer">
+          <a
+            href="/Yash_Patil_Resume.docx"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mobile-drawer-resume"
+            onClick={() => setIsMobileMenuOpen(false)}
+          >
+            <TbDownload /> Download Resume
+          </a>
+          <div className="mobile-drawer-meta">
+            <span>CSD '27 · Data Engineer</span>
+          </div>
+        </div>
+      </nav>
 
       <div className="nav-fade"></div>
     </>
@@ -116,3 +202,4 @@ const Navbar = () => {
 };
 
 export default Navbar;
+
