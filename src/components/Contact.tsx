@@ -28,7 +28,7 @@ const Contact = () => {
               </a>
               <button
                 type="button"
-                className="contact-copy-btn"
+                className={`contact-copy-btn ${copiedText === "email" ? "copied" : ""}`}
                 onClick={() => copyToClipboard("yashrspatil7313@gmail.com", "email")}
                 title="Copy email"
                 aria-label="Copy email address"
@@ -40,7 +40,7 @@ const Contact = () => {
             <div className="contact-interactive-line">
               <p className="contact-details">
                 <span
-                  className="contact-phone-clickable"
+                  className={`contact-phone-clickable ${copiedText === "phone" ? "copied" : ""}`}
                   onClick={() => copyToClipboard("9359307313", "phone")}
                   title="Click to copy phone"
                 >

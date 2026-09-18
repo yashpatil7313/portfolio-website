@@ -63,6 +63,23 @@ const Work = () => {
     ScrollTrigger.getById("work")?.kill();
   };
 }, []);
+
+  const handleBtnClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    const el = e.currentTarget;
+    const rect = el.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+
+    const wave = document.createElement("span");
+    wave.className = "btn-click-wave";
+    wave.style.left = `${x}px`;
+    wave.style.top = `${y}px`;
+    el.appendChild(wave);
+    setTimeout(() => {
+      wave.remove();
+    }, 600);
+  };
+
   return (
     <div className="work-section" id="work">
       <div className="work-scroll-track">
@@ -117,6 +134,7 @@ const Work = () => {
                     rel="noreferrer"
                     data-cursor="disable"
                     className="work-project-link"
+                    onClick={handleBtnClick}
                   >
                     View GitHub
                   </a>
@@ -128,6 +146,7 @@ const Work = () => {
                     rel="noreferrer"
                     data-cursor="disable"
                     className="work-project-link"
+                    onClick={handleBtnClick}
                   >
                     View Webpage
                   </a>

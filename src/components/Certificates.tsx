@@ -128,6 +128,22 @@ const Certificates = () => {
     card.style.setProperty("--rotate-y", "0deg");
   };
 
+  const handleCardClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    const card = e.currentTarget;
+    const rect = card.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+
+    const wave = document.createElement("span");
+    wave.className = "card-click-wave";
+    wave.style.left = `${x}px`;
+    wave.style.top = `${y}px`;
+    card.appendChild(wave);
+    setTimeout(() => {
+      wave.remove();
+    }, 650);
+  };
+
   return (
     <section className="certificates-section section-container" id="certificates" ref={sectionRef}>
       <div className="certificates-header">
@@ -151,6 +167,7 @@ const Certificates = () => {
             style={{ "--cert-color": certificate.color } as React.CSSProperties}
             onMouseMove={handleMouseMove}
             onMouseLeave={handleMouseLeave}
+            onClick={handleCardClick}
           >
             <div className="cert-glare" />
             <div className="cert-icon-wrapper">

@@ -65,6 +65,14 @@ const Navbar = () => {
     scrollToTarget(0, 0);
   }, []);
 
+  const [isThemeRotating, setIsThemeRotating] = useState(false);
+
+  const handleToggleTheme = useCallback(() => {
+    setIsThemeRotating(true);
+    setIsLightTheme((current) => !current);
+    setTimeout(() => setIsThemeRotating(false), 650);
+  }, []);
+
   return (
     <>
       <div className={`header ${isScrolled ? "header-scrolled" : ""}`}>
@@ -91,11 +99,11 @@ const Navbar = () => {
           ))}
         </ul>
         <button
-          className="theme-toggle"
+          className={`theme-toggle ${isThemeRotating ? "theme-rotating" : ""}`}
           type="button"
           aria-label={isLightTheme ? "Switch to dark mode" : "Switch to light mode"}
           title={isLightTheme ? "Dark mode" : "Light mode"}
-          onClick={() => setIsLightTheme((current) => !current)}
+          onClick={handleToggleTheme}
           data-cursor="disable"
         >
           {isLightTheme ? <MdDarkMode /> : <MdLightMode />}

@@ -2,29 +2,32 @@
   pointer-events: none;
   position: fixed;
   inset: 0;
-  z-index: 9999;
+  z-index: 10000;
   overflow: hidden;
+  display: block;
+}
+
+.cursor-dot,
+.cursor-ring {
   display: none;
 }
 
 @media (pointer: fine) and (min-width: 768px) {
-  .cursor-wrapper {
+  .cursor-dot,
+  .cursor-ring {
     display: block;
   }
 }
 
+/* Outer containers strictly handle coordinate translation */
 .cursor-dot {
   position: fixed;
   top: 0;
   left: 0;
-  width: 8px;
-  height: 8px;
-  margin: -4px 0 0 -4px;
-  border-radius: 50%;
-  background: var(--accentColor, #a78bfa);
-  box-shadow: 0 0 12px var(--accentColor, #8b5cf6);
+  width: 0;
+  height: 0;
   pointer-events: none;
-  transition: opacity 0.2s ease, background-color 0.3s ease;
+  transition: opacity 0.2s ease;
   will-change: transform;
 }
 
@@ -32,22 +35,47 @@
   position: fixed;
   top: 0;
   left: 0;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+  will-change: transform;
+}
+
+/* Inner cores handle sizing, borders, springs, and hover/click states */
+.cursor-dot-core {
+  display: block;
+  width: 8px;
+  height: 8px;
+  margin: -4px 0 0 -4px;
+  border-radius: 50%;
+  background: var(--accentColor, #a78bfa);
+  box-shadow: 0 0 12px var(--accentColor, #8b5cf6);
+  transition: transform 0.24s cubic-bezier(0.34, 1.56, 0.64, 1),
+              background-color 0.25s ease,
+              box-shadow 0.25s ease;
+  will-change: transform;
+}
+
+.cursor-ring-core {
+  display: block;
   width: 38px;
   height: 38px;
   margin: -19px 0 0 -19px;
   border-radius: 50%;
   border: 1.5px solid rgba(167, 139, 250, 0.55);
   background: radial-gradient(circle, rgba(139, 92, 246, 0.15) 0%, transparent 70%);
-  pointer-events: none;
-  transition: width 0.28s cubic-bezier(0.25, 1, 0.5, 1),
-              height 0.28s cubic-bezier(0.25, 1, 0.5, 1),
-              margin 0.28s cubic-bezier(0.25, 1, 0.5, 1),
-              border-color 0.3s ease,
-              background 0.3s ease;
+  transition: width 0.3s cubic-bezier(0.25, 1, 0.5, 1),
+              height 0.3s cubic-bezier(0.25, 1, 0.5, 1),
+              margin 0.3s cubic-bezier(0.25, 1, 0.5, 1),
+              border-color 0.25s ease,
+              background 0.25s ease,
+              transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
   will-change: transform, width, height;
 }
 
-.cursor-ring.cursor-hover {
+/* Hover States */
+.cursor-ring.cursor-hover .cursor-ring-core {
   width: 56px;
   height: 56px;
   margin: -28px 0 0 -28px;
@@ -55,13 +83,13 @@
   background: radial-gradient(circle, rgba(168, 85, 247, 0.25) 0%, rgba(139, 92, 246, 0.05) 75%);
 }
 
-.cursor-dot.cursor-hover {
+.cursor-dot.cursor-hover .cursor-dot-core {
   transform: scale(1.6);
   background: #c084fc;
   box-shadow: 0 0 16px #c084fc;
 }
 
-.cursor-ring.cursor-card {
+.cursor-ring.cursor-card .cursor-ring-core {
   width: 72px;
   height: 72px;
   margin: -36px 0 0 -36px;
@@ -69,6 +97,134 @@
   background: radial-gradient(circle, rgba(59, 130, 246, 0.2) 0%, transparent 80%);
 }
 
+/* Butter-Smooth Click Physics */
+.cursor-ring.cursor-clicking .cursor-ring-core {
+  transform: scale(0.68) !important;
+  border-color: #d8b4fe !important;
+  background: radial-gradient(circle, rgba(192, 132, 252, 0.4) 0%, transparent 80%) !important;
+  transition: transform 0.08s cubic-bezier(0.1, 0.9, 0.2, 1) !important;
+}
+
+.cursor-dot.cursor-clicking .cursor-dot-core {
+  transform: scale(0.55) !important;
+  background: #fdf4ff !important;
+  box-shadow: 0 0 20px #e9d5ff !important;
+  transition: transform 0.08s cubic-bezier(0.1, 0.9, 0.2, 1) !important;
+}
+
+.cursor-ring.cursor-release-pop .cursor-ring-core {
+  animation: cursorRingPop 0.42s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+@keyframes cursorRingPop {
+  0% { transform: scale(0.7); }
+  50% { transform: scale(1.3); }
+  100% { transform: scale(1); }
+}
+
 .cursor-hidden {
   opacity: 0 !important;
+}
+
+/* Global Silky Click Ripple & Micro-Sparks */
+.click-ripple {
+  position: fixed;
+  pointer-events: none;
+  z-index: 10001;
+  width: 0;
+  height: 0;
+}
+
+.ripple-wave {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 140px;
+  height: 140px;
+  margin: -70px 0 0 -70px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(168, 85, 247, 0.42) 0%, rgba(139, 92, 246, 0.18) 45%, transparent 75%);
+  animation: rippleWaveExpand 0.65s cubic-bezier(0.1, 0.9, 0.2, 1) forwards;
+  pointer-events: none;
+  will-change: transform, opacity;
+}
+
+.ripple-ring-wave {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 110px;
+  height: 110px;
+  margin: -55px 0 0 -55px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(192, 132, 252, 0.7);
+  box-shadow: 0 0 12px rgba(168, 85, 247, 0.5);
+  animation: rippleRingExpand 0.55s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  pointer-events: none;
+  will-change: transform, opacity;
+}
+
+@keyframes rippleWaveExpand {
+  0% {
+    transform: scale(0.1);
+    opacity: 0.85;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    transform: scale(1.4);
+    opacity: 0;
+  }
+}
+
+@keyframes rippleRingExpand {
+  0% {
+    transform: scale(0.2);
+    opacity: 0.9;
+  }
+  100% {
+    transform: scale(1.3);
+    opacity: 0;
+  }
+}
+
+.ripple-spark {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: #f5d0fe;
+  box-shadow: 0 0 8px #c084fc;
+  pointer-events: none;
+}
+
+.spark-1 { animation: sparkMove1 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+.spark-2 { animation: sparkMove2 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+.spark-3 { animation: sparkMove3 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+.spark-4 { animation: sparkMove4 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+
+@keyframes sparkMove1 {
+  0% { transform: translate(0, 0) scale(1); opacity: 1; }
+  100% { transform: translate(-26px, -24px) scale(0); opacity: 0; }
+}
+@keyframes sparkMove2 {
+  0% { transform: translate(0, 0) scale(1); opacity: 1; }
+  100% { transform: translate(26px, -22px) scale(0); opacity: 0; }
+}
+@keyframes sparkMove3 {
+  0% { transform: translate(0, 0) scale(1); opacity: 1; }
+  100% { transform: translate(-22px, 26px) scale(0); opacity: 0; }
+}
+@keyframes sparkMove4 {
+  0% { transform: translate(0, 0) scale(1); opacity: 1; }
+  100% { transform: translate(24px, 24px) scale(0); opacity: 0; }
+}
+
+:root[data-theme="light"] .ripple-wave {
+  background: radial-gradient(circle, rgba(124, 58, 237, 0.32) 0%, rgba(99, 102, 241, 0.14) 50%, transparent 75%);
+}
+:root[data-theme="light"] .ripple-ring-wave {
+  border-color: rgba(124, 58, 237, 0.6);
+  box-shadow: 0 0 10px rgba(124, 58, 237, 0.4);
 }

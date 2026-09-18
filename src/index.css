@@ -319,3 +319,69 @@ body {
   color: #4c1d95;
 }
 
+/* Butter-Smooth Tactile Spring Feedback on Clicks */
+button,
+a,
+.certificate-card,
+.work-project-link,
+.theme-toggle,
+.back-to-top-btn,
+.social-icon,
+.metric-card,
+.contact-copy-btn,
+.contact-phone-clickable,
+.landing-chat-cta,
+.landing-status-badge {
+  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1),
+              box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+              background 0.25s ease,
+              border-color 0.25s ease,
+              color 0.25s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+button:active,
+a:active,
+.certificate-card:active,
+.work-project-link:active,
+.theme-toggle:active,
+.back-to-top-btn:active,
+.social-icon:active,
+.metric-card:active,
+.contact-copy-btn:active,
+.contact-phone-clickable:active,
+.landing-chat-cta:active,
+.landing-status-badge:active {
+  transform: scale(0.955) !important;
+  transition: transform 0.08s cubic-bezier(0.1, 0.9, 0.2, 1) !important;
+}
+
+/* Butter-Smooth Section Arrival Feedback */
+@keyframes sectionArrivalShimmer {
+  0% {
+    box-shadow: 0 0 0 rgba(168, 85, 247, 0);
+  }
+  35% {
+    box-shadow: 0 0 50px rgba(168, 85, 247, 0.22);
+  }
+  100% {
+    box-shadow: 0 0 0 rgba(168, 85, 247, 0);
+  }
+}
+
+.section-arrival-pulse {
+  animation: sectionArrivalShimmer 1.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Butter-Smooth Color Theme Transition */
+body,
+.container-main,
+.header,
+.certificates-section,
+.about-section,
+.work-section,
+.contact-section {
+  transition: background-color 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+}
+

@@ -79,7 +79,7 @@ const MainContainer = ({ children }: PropsWithChildren) => {
       <button
         type="button"
         className={`back-to-top-btn ${showBackToTop ? "visible" : ""}`}
-        onClick={() => scrollToTarget("#landingDiv", 0)}
+        onClick={() => scrollToTarget(0, 0)}
         aria-label="Back to top"
         data-cursor="disable"
       >
