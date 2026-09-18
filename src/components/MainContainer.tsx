@@ -3,7 +3,6 @@ import About from "./About";
 import Career from "./Career";
 import Certificates from "./Certificates";
 import Contact from "./Contact";
-import Cursor from "./Cursor";
 import Landing from "./Landing";
 import Navbar from "./Navbar";
 import SocialIcons from "./SocialIcons";
@@ -69,7 +68,6 @@ const MainContainer = ({ children }: PropsWithChildren) => {
         className="global-scroll-progress"
         style={{ transform: `scaleX(${scrollProgress / 100})` }}
       />
-      <Cursor />
       <Navbar />
       <SocialIcons />
       <div id="smooth-wrapper">
