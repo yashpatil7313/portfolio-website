@@ -12,6 +12,7 @@ import Work from "./Work";
 import setSplitText from "./utils/splitText";
 import { initSmoothScroll, scrollToTarget } from "./utils/smoothScroll";
 import { MdKeyboardArrowUp } from "react-icons/md";
+import TextFlowStream from "./TextFlowStream";
 
 const TechStack = lazy(() => import("./TechStack"));
 
@@ -63,6 +64,7 @@ const MainContainer = ({ children }: PropsWithChildren) => {
         <div id="smooth-content">
           <div className="container-main">
             <Landing>{children}</Landing>
+            <TextFlowStream />
             <About />
             <WhatIDo />
             <Career />

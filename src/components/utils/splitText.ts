@@ -1,7 +1,7 @@
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-interface ParaElement extends HTMLElement {
+interface FlowElement extends HTMLElement {
   anim?: gsap.core.Animation;
 }
 
@@ -9,56 +9,29 @@ gsap.registerPlugin(ScrollTrigger);
 
 export default function setSplitText() {
   ScrollTrigger.config({ ignoreMobileResize: true });
-  if (window.innerWidth < 900) return;
 
-  const paras: NodeListOf<ParaElement> = document.querySelectorAll(".para");
-  const titles: NodeListOf<ParaElement> = document.querySelectorAll(".title");
+  const textElements: NodeListOf<FlowElement> = document.querySelectorAll(
+    ".title, .para, .certificates-header h2, .certificates-subtitle, .work-container h2, .contact-container h3, .about-stat-card"
+  );
 
-  const TriggerStart = window.innerWidth <= 1024 ? "top 60%" : "20% 60%";
-  const ToggleAction = "play pause resume reverse";
-
-  paras.forEach((para: ParaElement) => {
-    para.classList.add("visible");
-    if (para.anim) {
-      para.anim.progress(1).kill();
+  textElements.forEach((el: FlowElement) => {
+    if (el.anim) {
+      el.anim.kill();
     }
 
-    para.anim = gsap.fromTo(
-      para,
-      { autoAlpha: 0, y: 80 },
+    el.anim = gsap.fromTo(
+      el,
+      { autoAlpha: 0, y: 35 },
       {
         autoAlpha: 1,
-        scrollTrigger: {
-          trigger: para.parentElement?.parentElement,
-          toggleActions: ToggleAction,
-          start: TriggerStart,
-        },
-        duration: 1,
+        y: 0,
+        duration: 0.85,
         ease: "power3.out",
-        y: 0,
-      }
-    );
-  });
-
-  titles.forEach((title: ParaElement) => {
-    if (title.anim) {
-      title.anim.progress(1).kill();
-    }
-
-    title.anim = gsap.fromTo(
-      title,
-      { autoAlpha: 0, y: 80, rotate: 10 },
-      {
-        autoAlpha: 1,
         scrollTrigger: {
-          trigger: title.parentElement?.parentElement,
-          toggleActions: ToggleAction,
-          start: TriggerStart,
+          trigger: el,
+          start: "top 85%",
+          toggleActions: "play none none none",
         },
-        duration: 0.8,
-        ease: "power2.inOut",
-        y: 0,
-        rotate: 0,
       }
     );
   });

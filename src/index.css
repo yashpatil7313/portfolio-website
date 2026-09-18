@@ -385,3 +385,80 @@ body,
               border-color 0.45s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
+/* ==========================================================================
+   Fluid Liquid Chromatic Text Flow Animation
+   ========================================================================== */
+@keyframes flowTextGradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.flowing-gradient-text,
+.about-me h3.title,
+.certificates-header h2,
+.work-container h2 span,
+.contact-container h3,
+.what-box h2.title {
+  background: linear-gradient(
+    115deg,
+    #c084fc 0%,
+    #38bdf8 25%,
+    #f472b6 50%,
+    #a855f7 75%,
+    #38bdf8 100%
+  ) !important;
+  background-size: 280% 100% !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  animation: flowTextGradient 7.5s ease infinite !important;
+  display: inline-block;
+  will-change: background-position;
+}
+
+[data-theme="light"] .flowing-gradient-text,
+[data-theme="light"] .about-me h3.title,
+[data-theme="light"] .certificates-header h2,
+[data-theme="light"] .work-container h2 span,
+[data-theme="light"] .contact-container h3,
+[data-theme="light"] .what-box h2.title {
+  background: linear-gradient(
+    115deg,
+    #6d28d9 0%,
+    #0284c7 25%,
+    #db2777 50%,
+    #7c3aed 75%,
+    #0284c7 100%
+  ) !important;
+  background-size: 280% 100% !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  animation: flowTextGradient 7.5s ease infinite !important;
+}
+
+/* Fluid Text Wave Hover Shimmer */
+.title:hover,
+.certificates-header h2:hover,
+.work-container h2:hover,
+.contact-container h3:hover {
+  filter: drop-shadow(0 0 16px rgba(192, 132, 252, 0.55));
+  transition: filter 0.4s ease;
+}
+
+/* Flowing Card Perimeter Border Stream */
+@keyframes borderGlowOrbit {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+

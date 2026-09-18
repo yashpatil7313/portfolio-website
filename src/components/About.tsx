@@ -13,7 +13,7 @@ const About = () => (
     <div className="about-me">
       <h3 className="title">About Me</h3>
       <p className="para">
-        I am a B.Tech Computer Science and Design student passionate about databases, SQL, Python, and data-driven problem solving. I enjoy learning new technologies, building practical projects, and improving my technical skills through continuous practice. I am focused on strengthening my SQL and Python expertise to prepare for internships and placement opportunities in the data field.
+        I am a <span className="about-highlight">B.Tech Computer Science & Design</span> student passionate about <span className="about-highlight">databases, SQL</span>, <span className="about-highlight">Python</span>, and data-driven problem solving. I enjoy architecting practical projects and optimizing data workflows through continuous practice, preparing for data engineering and AI opportunities.
       </p>
       <div className="about-stats-grid">
         {stats.map((stat, i) => {
