@@ -399,6 +399,14 @@ body,
               border-color 0.45s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
+/* Off-screen paint containment & layout skipping */
+.career-section,
+.certificates-section,
+.contact-section {
+  content-visibility: auto;
+  contain-intrinsic-size: 1px 700px;
+}
+
 /* ==========================================================================
    Fluid Liquid Chromatic Text Flow Animation
    ========================================================================== */

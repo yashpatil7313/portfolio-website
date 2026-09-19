@@ -1,4 +1,4 @@
-import { lazy, PropsWithChildren, Suspense, useEffect, useState } from "react";
+import { lazy, PropsWithChildren, Suspense, useEffect, useRef, useState } from "react";
 import About from "./About";
 import Career from "./Career";
 import Certificates from "./Certificates";
@@ -17,7 +17,7 @@ const TechStack = lazy(() => import("./TechStack"));
 
 const MainContainer = ({ children }: PropsWithChildren) => {
   const [showBackToTop, setShowBackToTop] = useState(false);
-  const [scrollProgress, setScrollProgress] = useState(0);
+  const progressBarRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const lenis = initSmoothScroll();
@@ -32,13 +32,22 @@ const MainContainer = ({ children }: PropsWithChildren) => {
     resizeHandler();
     window.addEventListener("resize", resizeHandler);
 
+    const updateProgress = (ratio: number) => {
+      if (progressBarRef.current) {
+        progressBarRef.current.style.transform = `scaleX(${ratio})`;
+      }
+    };
+
     let unsubscribeLenis: (() => void) | undefined;
     if (lenis) {
       const onLenisScroll = (e: { scroll: number; limit: number }) => {
         if (e.limit > 0) {
-          setScrollProgress((e.scroll / e.limit) * 100);
+          updateProgress(Math.min(1, Math.max(0, e.scroll / e.limit)));
         }
-        setShowBackToTop(e.scroll > 450);
+        setShowBackToTop((prev) => {
+          const next = e.scroll > 450;
+          return prev !== next ? next : prev;
+        });
       };
       lenis.on("scroll", onLenisScroll);
       unsubscribeLenis = () => lenis.off("scroll", onLenisScroll);
@@ -47,9 +56,12 @@ const MainContainer = ({ children }: PropsWithChildren) => {
         const scrollY = window.scrollY || document.documentElement.scrollTop;
         const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
         if (height > 0) {
-          setScrollProgress((scrollY / height) * 100);
+          updateProgress(Math.min(1, Math.max(0, scrollY / height)));
         }
-        setShowBackToTop(scrollY > 500);
+        setShowBackToTop((prev) => {
+          const next = scrollY > 450;
+          return prev !== next ? next : prev;
+        });
       };
       window.addEventListener("scroll", handleScroll, { passive: true });
       unsubscribeLenis = () => window.removeEventListener("scroll", handleScroll);
@@ -65,8 +77,9 @@ const MainContainer = ({ children }: PropsWithChildren) => {
   return (
     <div className="container-main">
       <div
+        ref={progressBarRef}
         className="global-scroll-progress"
-        style={{ transform: `scaleX(${scrollProgress / 100})` }}
+        style={{ transform: "scaleX(0)" }}
       />
       <Navbar />
       <SocialIcons />

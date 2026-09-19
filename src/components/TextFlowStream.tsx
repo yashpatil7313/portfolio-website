@@ -1,4 +1,5 @@
-﻿import Marquee from "react-fast-marquee";
+import { useEffect, useRef, useState } from "react";
+import Marquee from "react-fast-marquee";
 import "./styles/TextFlowStream.css";
 
 const STREAM_1 = [
@@ -24,14 +25,31 @@ const STREAM_2 = [
 ];
 
 const TextFlowStream = () => {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const el = containerRef.current;
+    if (!el) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsVisible(entry.isIntersecting);
+      },
+      { rootMargin: "150px 0px 150px 0px" }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <div className="text-flow-stream-wrap" aria-hidden="true">
+    <div ref={containerRef} className="text-flow-stream-wrap" aria-hidden="true">
       <div className="text-flow-fade-left" />
       <div className="text-flow-fade-right" />
 
       {/* Primary Flow Stream */}
       <div className="text-flow-row text-flow-primary">
-        <Marquee speed={48} gradient={false} pauseOnHover={true}>
+        <Marquee speed={48} gradient={false} pauseOnHover={true} play={isVisible}>
           {STREAM_1.map((item, idx) => (
             <div className="text-flow-item" key={idx}>
               <span className="text-flow-word">{item}</span>
@@ -43,7 +61,7 @@ const TextFlowStream = () => {
 
       {/* Secondary Reverse Outline Flow Stream */}
       <div className="text-flow-row text-flow-secondary">
-        <Marquee speed={36} direction="right" gradient={false} pauseOnHover={true}>
+        <Marquee speed={36} direction="right" gradient={false} pauseOnHover={true} play={isVisible}>
           {STREAM_2.map((item, idx) => (
             <div className="text-flow-item outline-item" key={idx}>
               <span className="text-flow-word">{item}</span>

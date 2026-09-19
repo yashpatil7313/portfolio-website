@@ -194,38 +194,25 @@ function Pointer({ vec = new THREE.Vector3(), isActive }: PointerProps) {
 const TechStack = () => {
   const [isActive, setIsActive] = useState(false);
   const [enableAO, setEnableAO] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const workEl = document.getElementById("work");
-    let ticking = false;
-    const handleScroll = () => {
-      if (!ticking && workEl) {
-        ticking = true;
-        requestAnimationFrame(() => {
-          const threshold = workEl.getBoundingClientRect().top;
-          setIsActive(
-            (window.scrollY || document.documentElement.scrollTop) > threshold
-          );
-          ticking = false;
-        });
+    const el = containerRef.current;
+    if (!el) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsActive(entry.isIntersecting);
+      },
+      {
+        rootMargin: "250px 0px 250px 0px",
+        threshold: 0,
       }
-    };
-    const onNavClick = () => {
-      let count = 0;
-      const id = setInterval(() => {
-        handleScroll();
-        if (++count >= 50) clearInterval(id);
-      }, 20);
-    };
-    document.querySelectorAll(".header a").forEach((el) => {
-      (el as HTMLAnchorElement).addEventListener("click", onNavClick);
-    });
-    window.addEventListener("scroll", handleScroll, { passive: true });
+    );
+
+    observer.observe(el);
     return () => {
-      window.removeEventListener("scroll", handleScroll);
-      document.querySelectorAll(".header a").forEach((el) => {
-        (el as HTMLAnchorElement).removeEventListener("click", onNavClick);
-      });
+      observer.disconnect();
     };
   }, []);
 
@@ -252,7 +239,7 @@ const TechStack = () => {
   }, []);
 
   return (
-    <div className="techstack">
+    <div className="techstack" ref={containerRef}>
       <h2> My Techstack</h2>
 
       <Canvas

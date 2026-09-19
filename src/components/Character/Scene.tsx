@@ -160,21 +160,24 @@ const Scene = () => {
     const mobileSkip = mobile ? 2 : 1;
     let frameCount = 0;
 
-    // Character is visible through landing + about + whatIDo sections.
-    // Use the character-model element's visibility to determine rendering.
+    // Use IntersectionObserver on character element to avoid getBoundingClientRect layout thrashing in RAF
     const charEl = canvasDiv.current;
-    const isCharVisible = () => {
-      if (!charEl) return cachedScrollY < 500;
-      const rect = charEl.getBoundingClientRect();
-      return rect.bottom > 0 && rect.top < window.innerHeight;
-    };
+    let isCharIntersecting = true;
+    const charObserver = new IntersectionObserver(
+      ([entry]) => {
+        isCharIntersecting = entry.isIntersecting;
+      },
+      { rootMargin: "100px 0px 100px 0px" }
+    );
+    if (charEl) {
+      charObserver.observe(charEl);
+    }
 
     const animate = (now = 0) => {
       animFrameId = requestAnimationFrame(animate);
-      if (!isPageVisible) return;
+      if (!isPageVisible || !isCharIntersecting) return;
       if (now - lastFrameTime < frameInterval) return;
       lastFrameTime = now;
-      if (!isCharVisible()) return;
       frameCount++;
       const elapsed = clock.getElapsedTime();
       animations.update(elapsed);
@@ -198,6 +201,7 @@ const Scene = () => {
 
     return () => {
       cancelAnimationFrame(animFrameId);
+      charObserver.disconnect();
       window.removeEventListener("scroll", onScroll);
       document.removeEventListener("visibilitychange", onVisibilityChange);
       if (chatThinkingTimeoutRef.current !== null) {

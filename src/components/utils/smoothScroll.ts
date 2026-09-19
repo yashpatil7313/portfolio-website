@@ -8,9 +8,18 @@ export function initSmoothScroll(): Lenis | null {
   if (typeof window === "undefined") return null;
   if (lenisInstance) return lenisInstance;
 
+  const isTouchDevice =
+    ("ontouchstart" in window || navigator.maxTouchPoints > 0) &&
+    window.innerWidth <= 768;
+
+  // Mobile phones run native hardware momentum scrolling for maximum 120Hz responsiveness
+  if (isTouchDevice) {
+    return null;
+  }
+
   lenisInstance = new Lenis({
     autoRaf: true,
-    lerp: 0.085,
+    lerp: 0.09,
     wheelMultiplier: 0.95,
     touchMultiplier: 1.0,
     smoothWheel: true,
