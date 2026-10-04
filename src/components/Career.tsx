@@ -1,6 +1,16 @@
+import { useEffect } from "react";
 import "./styles/Career.css";
+import { setAllTimeline } from "./utils/GsapScroll";
 
-const Career = () => (
+const Career = () => {
+  useEffect(() => {
+    const tl = setAllTimeline();
+    return () => {
+      tl?.kill();
+    };
+  }, []);
+
+  return (
   <div className="career-section section-container">
     <div className="career-container">
       <h2>Education <span>&</span><br />focus</h2>
@@ -19,6 +29,7 @@ const Career = () => (
       </div>
     </div>
   </div>
-);
+  );
+};
 
 export default Career;

@@ -1,4 +1,4 @@
-import { lazy, PropsWithChildren, Suspense, useEffect, useRef, useState } from "react";
+import { lazy, Suspense, useEffect, useRef, useState } from "react";
 import About from "./About";
 import Career from "./Career";
 import Certificates from "./Certificates";
@@ -15,7 +15,7 @@ import TextFlowStream from "./TextFlowStream";
 
 const TechStack = lazy(() => import("./TechStack"));
 
-const MainContainer = ({ children }: PropsWithChildren) => {
+const MainContainer = () => {
   const [showBackToTop, setShowBackToTop] = useState(false);
   const progressBarRef = useRef<HTMLDivElement>(null);
 
@@ -76,6 +76,7 @@ const MainContainer = ({ children }: PropsWithChildren) => {
 
   return (
     <div className="container-main">
+      <div className="global-space-bg" aria-hidden="true" />
       <div
         ref={progressBarRef}
         className="global-scroll-progress"
@@ -86,7 +87,7 @@ const MainContainer = ({ children }: PropsWithChildren) => {
       <div id="smooth-wrapper">
         <div id="smooth-content">
           <div className="container-main">
-            <Landing>{children}</Landing>
+            <Landing />
             <TextFlowStream />
             <About />
             <WhatIDo />

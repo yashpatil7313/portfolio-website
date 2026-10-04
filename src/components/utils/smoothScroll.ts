@@ -1,5 +1,6 @@
 import Lenis from "lenis";
 import "lenis/dist/lenis.css";
+import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 let lenisInstance: Lenis | null = null;
@@ -17,16 +18,24 @@ export function initSmoothScroll(): Lenis | null {
     return null;
   }
 
+  // Snappy, butter-smooth scroll without artificial lag
   lenisInstance = new Lenis({
-    autoRaf: true,
-    lerp: 0.09,
-    wheelMultiplier: 0.95,
+    autoRaf: false,
+    duration: 0.55,
+    easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+    wheelMultiplier: 1.15,
     touchMultiplier: 1.0,
     smoothWheel: true,
     syncTouch: false,
   });
 
   lenisInstance.on("scroll", ScrollTrigger.update);
+
+  // Synchronize Lenis strictly inside GSAP ticker to eliminate out-of-phase RAF stutter
+  gsap.ticker.add((time) => {
+    lenisInstance?.raf(time * 1000);
+  });
+  gsap.ticker.lagSmoothing(500, 33);
 
   // Expose global instance for debugging / access
   (window as unknown as { lenis: Lenis }).lenis = lenisInstance;

@@ -6,14 +6,6 @@ export function initialFX() {
   const main = document.getElementsByTagName("main")[0];
   if (main) main.classList.add("main-active");
 
-  if (document.documentElement.dataset.theme !== "light") {
-    gsap.to("body", {
-      backgroundColor: "#08051a",
-      duration: 0.5,
-      delay: 1,
-    });
-  }
-
   gsap.fromTo(
     [".landing-info h3", ".landing-intro h2"],
     { opacity: 0, y: 80, filter: "blur(5px)" },

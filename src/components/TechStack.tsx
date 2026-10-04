@@ -2,7 +2,6 @@ import * as THREE from "three";
 import { useRef, useMemo, useState, useEffect } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { Environment } from "@react-three/drei";
-import { EffectComposer, N8AO } from "@react-three/postprocessing";
 import {
   BallCollider,
   Physics,
@@ -193,7 +192,6 @@ function Pointer({ vec = new THREE.Vector3(), isActive }: PointerProps) {
 
 const TechStack = () => {
   const [isActive, setIsActive] = useState(false);
-  const [enableAO, setEnableAO] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -229,13 +227,6 @@ const TechStack = () => {
           clearcoat: 0.1,
         })
     );
-  }, []);
-
-  useEffect(() => {
-    if (mobile) return;
-    const cores = (navigator as any).hardwareConcurrency ?? 4;
-    const dpr = window.devicePixelRatio ?? 1;
-    setEnableAO(cores >= 6 && dpr <= 2);
   }, []);
 
   return (
@@ -283,11 +274,6 @@ const TechStack = () => {
             environmentIntensity={0.5}
             environmentRotation={[0, 4, 2]}
           />
-        )}
-        {enableAO && (
-          <EffectComposer enableNormalPass={false}>
-            <N8AO color="#001a14" aoRadius={2} intensity={1.0} />
-          </EffectComposer>
         )}
       </Canvas>
     </div>

@@ -10,14 +10,18 @@ const Loading = ({ percent }: { percent: number }) => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [clicked, setClicked] = useState(false);
 
-  if (percent >= 100) {
-    setTimeout(() => {
-      setLoaded(true);
-      setTimeout(() => {
-        setIsLoaded(true);
-      }, 1000);
-    }, 600);
-  }
+  useEffect(() => {
+    if (percent >= 100 && !loaded) {
+      const timer1 = setTimeout(() => {
+        setLoaded(true);
+        const timer2 = setTimeout(() => {
+          setIsLoaded(true);
+        }, 350);
+        return () => clearTimeout(timer2);
+      }, 200);
+      return () => clearTimeout(timer1);
+    }
+  }, [percent, loaded]);
 
   useEffect(() => {
     import("./utils/initialFX").then((module) => {
@@ -28,10 +32,10 @@ const Loading = ({ percent }: { percent: number }) => {
             module.initialFX();
           }
           setIsLoading(false);
-        }, 900);
+        }, 600);
       }
     });
-  }, [isLoaded]);
+  }, [isLoaded, setIsLoading]);
 
   function handleMouseMove(e: React.MouseEvent<HTMLElement>) {
     const { currentTarget: target } = e;

@@ -10,13 +10,13 @@ const setLighting = (scene: THREE.Scene) => {
   const ambientLight = new THREE.AmbientLight(0xffffff, 0);
   scene.add(ambientLight);
 
-  // Emerald accent light from below-left
-  const accentLight = new THREE.PointLight(0x10b981, 0, 18);
+  // Electric Azure accent light from below-left
+  const accentLight = new THREE.PointLight(0x38bdf8, 0, 18);
   accentLight.position.set(-2, -1, 3);
   scene.add(accentLight);
 
-  // Warm fill light from the right
-  const fillLight = new THREE.PointLight(0xdbeafe, 0, 18);
+  // Royal Sapphire fill light from the right
+  const fillLight = new THREE.PointLight(0x2563eb, 0, 18);
   fillLight.position.set(3, 2.5, 3);
   scene.add(fillLight);
 

@@ -3,9 +3,9 @@ import { TbDatabase, TbCode, TbCertificate, TbSchool } from "react-icons/tb";
 
 const stats = [
   { icon: TbDatabase, number: "500+", label: "SQL Queries Solved", color: "#38bdf8" },
-  { icon: TbCode, number: "15+", label: "Projects & Utilities", color: "#a855f7" },
-  { icon: TbCertificate, number: "3+", label: "Industry Certifications", color: "#f59e0b" },
-  { icon: TbSchool, number: "2027", label: "B.Tech Grad (CSD)", color: "#10b981" },
+  { icon: TbCode, number: "15+", label: "Projects & Utilities", color: "#60a5fa" },
+  { icon: TbCertificate, number: "3+", label: "Industry Certifications", color: "#0ea5e9" },
+  { icon: TbSchool, number: "2027", label: "B.Tech Grad (CSD)", color: "#2563eb" },
 ];
 
 const About = () => (

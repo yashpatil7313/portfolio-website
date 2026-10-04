@@ -1,22 +1,22 @@
-﻿.text-flow-stream-wrap {
+.text-flow-stream-wrap {
   position: relative;
   width: 100%;
   overflow: hidden;
   padding: 24px 0;
   margin: 30px 0;
-  background: rgba(15, 23, 42, 0.45);
-  border-top: 1px solid rgba(139, 92, 246, 0.22);
-  border-bottom: 1px solid rgba(139, 92, 246, 0.22);
-  box-shadow: inset 0 0 30px rgba(139, 92, 246, 0.08);
+  background: rgba(0, 0, 0, 0.6);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: inset 0 0 35px rgba(0, 0, 0, 0.8);
   user-select: none;
   pointer-events: auto;
 }
 
 [data-theme="light"] .text-flow-stream-wrap {
-  background: rgba(245, 243, 255, 0.65);
-  border-top: 1px solid rgba(139, 92, 246, 0.25);
-  border-bottom: 1px solid rgba(139, 92, 246, 0.25);
-  box-shadow: inset 0 0 30px rgba(139, 92, 246, 0.06);
+  background: rgba(240, 249, 255, 0.75);
+  border-top: 1px solid rgba(2, 132, 199, 0.25);
+  border-bottom: 1px solid rgba(2, 132, 199, 0.25);
+  box-shadow: inset 0 0 30px rgba(2, 132, 199, 0.06);
 }
 
 .text-flow-fade-left,
@@ -60,16 +60,16 @@
   font-size: clamp(20px, 3.2vw, 36px);
   font-weight: 800;
   letter-spacing: 0.08em;
-  background: linear-gradient(90deg, #c084fc, #38bdf8, #f472b6, #a855f7, #c084fc);
+  background: linear-gradient(90deg, #60a5fa, #38bdf8, #0ea5e9, #2563eb, #38bdf8);
   background-size: 250% auto;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   animation: flowTextGradient 7s linear infinite;
-  text-shadow: 0 0 20px rgba(168, 85, 247, 0.25);
+  text-shadow: 0 0 20px rgba(14, 165, 233, 0.35);
 }
 
 [data-theme="light"] .text-flow-primary .text-flow-word {
-  background: linear-gradient(90deg, #6d28d9, #0284c7, #db2777, #7c3aed, #6d28d9);
+  background: linear-gradient(90deg, #0369a1, #0284c7, #2563eb, #1d4ed8, #0284c7);
   background-size: 250% auto;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -80,33 +80,33 @@
   font-size: clamp(16px, 2.4vw, 26px);
   font-weight: 700;
   letter-spacing: 0.12em;
-  color: rgba(226, 232, 240, 0.4);
-  -webkit-text-stroke: 1px rgba(192, 132, 252, 0.35);
+  color: rgba(226, 232, 240, 0.45);
+  -webkit-text-stroke: 1px rgba(56, 189, 248, 0.38);
   transition: color 0.3s ease, -webkit-text-stroke 0.3s ease;
 }
 
 [data-theme="light"] .text-flow-secondary .text-flow-word {
   color: rgba(71, 85, 105, 0.45);
-  -webkit-text-stroke: 1px rgba(109, 40, 217, 0.3);
+  -webkit-text-stroke: 1px rgba(2, 132, 199, 0.35);
 }
 
 .text-flow-item:hover .text-flow-word {
-  color: rgba(255, 255, 255, 0.9);
-  -webkit-text-stroke: 1px rgba(168, 85, 247, 0.8);
+  color: rgba(255, 255, 255, 0.95);
+  -webkit-text-stroke: 1px rgba(56, 189, 248, 0.85);
 }
 
 .text-flow-star {
   font-size: 16px;
   margin-left: 28px;
-  color: #a855f7;
-  text-shadow: 0 0 10px #a855f7;
+  color: #38bdf8;
+  text-shadow: 0 0 10px #38bdf8;
   display: inline-block;
   animation: starSpinFloat 4s ease-in-out infinite alternate;
 }
 
 .text-flow-star.alt-star {
-  color: #38bdf8;
-  text-shadow: 0 0 10px #38bdf8;
+  color: #60a5fa;
+  text-shadow: 0 0 10px #60a5fa;
   font-size: 13px;
 }
 

@@ -1,7 +1,7 @@
-import { PropsWithChildren, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import "./styles/Landing.css";
 import { useLoading } from "../context/LoadingProvider";
-import { scrollToTarget } from "./utils/smoothScroll";
+import { FaGithub, FaLinkedinIn } from "react-icons/fa6";
 
 function useTypingEffect(text: string, delay: number, speed: number, enabled: boolean) {
   const [displayed, setDisplayed] = useState("");
@@ -21,26 +21,16 @@ function useTypingEffect(text: string, delay: number, speed: number, enabled: bo
   return displayed;
 }
 
-const Landing = ({ children }: PropsWithChildren) => {
+const Landing = () => {
   const { isLoading } = useLoading();
   const name = useTypingEffect("YASH PATIL", 1500, 120, !isLoading);
 
   return (
     <>
       <div className="landing-section" id="landingDiv">
-        <div className="landing-aurora-wrap" aria-hidden="true">
-          <div className="landing-aurora aurora-1" />
-          <div className="landing-aurora aurora-2" />
-          <div className="landing-aurora aurora-3" />
-        </div>
-        <div className="landing-circle1"></div>
-        <div className="landing-circle2"></div>
         <div className="landing-container">
+          {/* Left Intro Card: Profile, Name, Socials, Class Badge */}
           <div className="landing-intro">
-            <div className="landing-status-badge">
-              <span className="landing-status-dot"></span>
-              <span>Available for Opportunities · CSD '27</span>
-            </div>
             <div className="landing-profile-wrap">
               <img
                 className="landing-profile-photo"
@@ -53,32 +43,39 @@ const Landing = ({ children }: PropsWithChildren) => {
             <h1 className="landing-typed-name" aria-label="Yash Patil">
               {name}<span className="typing-cursor">|</span>
             </h1>
+            <div className="landing-social-links">
+              <a
+                href="https://github.com/yashpatil7313"
+                target="_blank"
+                rel="noreferrer"
+                className="landing-social-btn"
+                aria-label="GitHub Profile"
+              >
+                <FaGithub />
+              </a>
+              <a
+                href="https://www.linkedin.com/in/yashpatil7313"
+                target="_blank"
+                rel="noreferrer"
+                className="landing-social-btn"
+                aria-label="LinkedIn Profile"
+              >
+                <FaLinkedinIn />
+              </a>
+            </div>
+            <div className="landing-status-badge">
+              <span className="landing-status-dot"></span>
+              <span>CST Class of 2027</span>
+            </div>
           </div>
-          <div className="landing-avatar-slot">
-            {children}
-          </div>
-          <div className="landing-info">
-            <h3>Aspiring</h3>
-            <h2 className="landing-info-h2" aria-label="Data Engineer">
-              <div className="landing-h2-1">Data</div>
-              <div className="landing-h2-2">Engineer</div>
-            </h2>
-            <h2>
-              <div className="landing-h2-info">Data Engineer</div>
-              <div className="landing-h2-info-1">SQL Developer</div>
-            </h2>
-            <button
-              className="landing-chat-cta"
-              type="button"
-              data-cursor="disable"
-              onClick={() => {
-                scrollToTarget("#about", -50);
-              }}
-            >
-              <span className="landing-chat-dot" />
-              <span>Scroll to explore</span>
-              <span className="landing-scroll-arrow">↓</span>
-            </button>
+
+          {/* Center Cosmic Infinity Graphic: SQL DEVELOPER & Particle Sphere */}
+          <div className="landing-infinity-wrap">
+            <img
+              src="/images/sql-developer-infinity-clean.png"
+              alt="SQL Developer Cosmic Infinity Loop"
+              className="landing-infinity-graphic"
+            />
           </div>
         </div>
       </div>

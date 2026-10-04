@@ -35,12 +35,12 @@
 
 .about-highlight {
   font-weight: 600;
-  color: #c084fc;
-  text-shadow: 0 0 12px rgba(192, 132, 252, 0.35);
+  color: #38bdf8;
+  text-shadow: 0 0 12px rgba(56, 189, 248, 0.45);
   transition: color 0.3s ease;
 }
 [data-theme="light"] .about-highlight {
-  color: #6d28d9;
+  color: #0284c7;
   text-shadow: none;
 }
 
@@ -58,10 +58,9 @@
   gap: 14px;
   padding: 16px 18px;
   border-radius: 16px;
-  background: rgba(15, 23, 42, 0.55);
-  border: 1px solid rgba(139, 92, 246, 0.22);
-  backdrop-filter: blur(12px);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+  background: rgba(14, 14, 18, 0.88);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
   position: relative;
   overflow: hidden;
   transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1),
@@ -69,37 +68,10 @@
               box-shadow 0.3s ease;
 }
 
-.about-stat-card::before {
-  content: "";
-  position: absolute;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
-  background: conic-gradient(
-    transparent 0deg,
-    transparent 280deg,
-    var(--card-accent, #a855f7) 320deg,
-    transparent 360deg
-  );
-  animation: borderGlowOrbit 7s linear infinite;
-  opacity: 0.35;
-  pointer-events: none;
-}
-
-.about-stat-card::after {
-  content: "";
-  position: absolute;
-  inset: 1px;
-  background: inherit;
-  border-radius: 15px;
-  z-index: 0;
-}
-
 .about-stat-card:hover {
   transform: translateY(-4px);
-  border-color: var(--card-accent, rgba(167, 139, 250, 0.8));
-  box-shadow: 0 14px 36px rgba(0, 0, 0, 0.4), 0 0 20px rgba(139, 92, 246, 0.2);
+  border-color: var(--card-accent, rgba(56, 189, 248, 0.85));
+  box-shadow: 0 14px 36px rgba(0, 0, 0, 0.8), 0 0 24px var(--card-accent, rgba(56, 189, 248, 0.3));
 }
 
 .about-stat-icon-wrap {
@@ -109,10 +81,10 @@
   width: 44px;
   height: 44px;
   border-radius: 12px;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(14, 165, 233, 0.1);
+  border: 1px solid rgba(56, 189, 248, 0.22);
   flex-shrink: 0;
-  color: var(--card-accent, #a78bfa);
+  color: var(--card-accent, #38bdf8);
   position: relative;
   z-index: 1;
 }
@@ -131,7 +103,7 @@
   font-size: 24px;
   font-weight: 800;
   line-height: 1.2;
-  background: linear-gradient(90deg, var(--card-accent, #c084fc), #38bdf8, #f472b6, var(--card-accent, #c084fc));
+  background: linear-gradient(90deg, var(--card-accent, #60a5fa), #38bdf8, #0ea5e9, var(--card-accent, #2563eb));
   background-size: 250% auto;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -147,14 +119,14 @@
 }
 
 :root[data-theme="light"] .about-stat-card {
-  background: rgba(255, 255, 255, 0.85);
-  border-color: rgba(109, 40, 217, 0.2);
-  box-shadow: 0 8px 24px rgba(79, 70, 229, 0.08);
+  background: rgba(255, 255, 255, 0.88);
+  border-color: rgba(2, 132, 199, 0.2);
+  box-shadow: 0 8px 24px rgba(2, 132, 199, 0.08);
 }
 
 :root[data-theme="light"] .about-stat-icon-wrap {
-  background: rgba(109, 40, 217, 0.08);
-  border-color: rgba(109, 40, 217, 0.15);
+  background: rgba(2, 132, 199, 0.08);
+  border-color: rgba(2, 132, 199, 0.18);
 }
 
 /* Phone-only: compact readable text in a fancy box */
@@ -163,9 +135,9 @@
     padding: 24px 20px;
     margin: 24px auto;
     border-radius: 20px;
-    border: 1px solid rgba(139, 92, 246, 0.3);
-    background: linear-gradient(145deg, rgba(20, 15, 45, 0.85), rgba(10, 8, 26, 0.95));
-    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(56, 189, 248, 0.3);
+    background: linear-gradient(145deg, rgba(14, 14, 18, 0.92), rgba(5, 5, 8, 0.98));
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.8), inset 0 1px 0 rgba(255, 255, 255, 0.1);
   }
   .about-me h3 {
     font-size: 16px;
@@ -178,13 +150,13 @@
     font-weight: 400;
     line-height: 24px;
     letter-spacing: 0.2px;
-    color: #cbd5e1;
+    color: #e2e8f0;
     margin-bottom: 20px;
   }
   :root[data-theme="light"] .about-me {
     background: rgba(255, 255, 255, 0.92);
-    border-color: rgba(139, 92, 246, 0.25);
-    box-shadow: 0 10px 30px rgba(124, 58, 237, 0.08);
+    border-color: rgba(2, 132, 199, 0.25);
+    box-shadow: 0 10px 30px rgba(2, 132, 199, 0.08);
   }
   :root[data-theme="light"] .about-me p {
     color: #334155;
