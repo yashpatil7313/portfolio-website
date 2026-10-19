@@ -18,12 +18,11 @@ export function initSmoothScroll(): Lenis | null {
     return null;
   }
 
-  // Snappy, butter-smooth scroll without artificial lag
+  // Ultra-fluid 144Hz responsive linear interpolation scroll
   lenisInstance = new Lenis({
     autoRaf: false,
-    duration: 0.55,
-    easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-    wheelMultiplier: 1.15,
+    lerp: 0.1, // Directly syncs with high-refresh rate displays (120Hz/144Hz/240Hz)
+    wheelMultiplier: 1.0,
     touchMultiplier: 1.0,
     smoothWheel: true,
     syncTouch: false,
@@ -35,7 +34,8 @@ export function initSmoothScroll(): Lenis | null {
   gsap.ticker.add((time) => {
     lenisInstance?.raf(time * 1000);
   });
-  gsap.ticker.lagSmoothing(500, 33);
+  // Disable artificial lag smoothing so every single 144Hz frame fires natively without throttling
+  gsap.ticker.lagSmoothing(0);
 
   // Expose global instance for debugging / access
   (window as unknown as { lenis: Lenis }).lenis = lenisInstance;

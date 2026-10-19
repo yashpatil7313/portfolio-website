@@ -1,8 +1,6 @@
 import { FaGithub, FaLinkedinIn } from "react-icons/fa6";
 import "./styles/SocialIcons.css";
-import { TbNotes } from "react-icons/tb";
 import { useEffect } from "react";
-import HoverLinks from "./HoverLinks";
 
 const SocialIcons = () => {
   useEffect(() => {
@@ -54,27 +52,16 @@ const SocialIcons = () => {
     <div className="icons-section">
       <div className="social-icons" data-cursor="icons" id="social">
         <span>
-          <a href="https://github.com/yashpatil7313" target="_blank" rel="noreferrer">
+          <a href="https://github.com/yashpatil7313" target="_blank" rel="noreferrer" aria-label="GitHub Profile">
             <FaGithub />
           </a>
         </span>
         <span>
-          <a href="https://www.linkedin.com/in/yash-patil-468276352/" target="_blank" rel="noreferrer">
+          <a href="https://www.linkedin.com/in/yash-patil-468276352/" target="_blank" rel="noreferrer" aria-label="LinkedIn Profile">
             <FaLinkedinIn />
           </a>
         </span>
       </div>
-      <a
-        className="resume-button"
-        href="/Yash_Patil_Resume.docx"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        <HoverLinks text="RESUME" />
-        <span>
-          <TbNotes />
-        </span>
-      </a>
     </div>
   );
 };

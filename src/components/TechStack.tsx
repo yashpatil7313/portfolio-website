@@ -99,7 +99,7 @@ type SphereProps = {
   vec?: THREE.Vector3;
   scale: number;
   r?: typeof THREE.MathUtils.randFloatSpread;
-  material: THREE.MeshPhysicalMaterial;
+  material: THREE.Material;
   isActive: boolean;
 };
 
@@ -114,9 +114,9 @@ function SphereGeo({
 }: SphereProps) {
   const api = useRef<RapierRigidBody | null>(null);
 
-  useFrame((state, delta) => {
+  useFrame((_state, delta) => {
     if (!isActive) return;
-    delta = Math.min(0.1, delta);
+    delta = Math.min(0.05, delta);
     const t = api.current!.translation();
     vec.set(t.x, t.y, t.z).normalize();
     _impulseVec.set(
@@ -125,7 +125,6 @@ function SphereGeo({
       vec.z * -50 * delta * scale
     );
     api.current?.applyImpulse(_impulseVec, true);
-    state.invalidate();
   });
 
   return (
@@ -173,9 +172,8 @@ function Pointer({ vec = new THREE.Vector3(), isActive }: PointerProps) {
       (pointer.y * viewport.height) / 2,
       0
     );
-    vec.lerp(_pointerTarget, 0.2);
+    vec.lerp(_pointerTarget, 0.25);
     ref.current?.setNextKinematicTranslation(vec);
-    state.invalidate();
   });
 
   return (
@@ -217,14 +215,13 @@ const TechStack = () => {
   const materials = useMemo(() => {
     return allTextures.map(
       (texture) =>
-        new THREE.MeshPhysicalMaterial({
+        new THREE.MeshStandardMaterial({
           map: texture,
           emissive: "#ffffff",
           emissiveMap: texture,
-          emissiveIntensity: 0.3,
-          metalness: 0.5,
-          roughness: 1,
-          clearcoat: 0.1,
+          emissiveIntensity: 0.25,
+          metalness: 0.25,
+          roughness: 0.65,
         })
     );
   }, []);
@@ -234,27 +231,24 @@ const TechStack = () => {
       <h2> My Techstack</h2>
 
       <Canvas
-        shadows={!mobile}
-        frameloop="demand"
-        dpr={mobile ? [1, 1] : [1, 1.5]}
-        gl={{ alpha: true, stencil: false, depth: false, antialias: false }}
+        frameloop={isActive ? "always" : "never"}
+        dpr={mobile ? [1, 1] : [1, 1.25]}
+        gl={{ alpha: true, stencil: false, depth: false, antialias: false, powerPreference: "high-performance" }}
         camera={{
           position: [0, 0, 20],
           fov: mobile ? 40 : 32.5,
           near: 1,
           far: 100,
         }}
-        onCreated={(state) => (state.gl.toneMappingExposure = 1.5)}
+        onCreated={(state) => (state.gl.toneMappingExposure = 1.4)}
         className="tech-canvas"
       >
-        <ambientLight intensity={1} />
+        <ambientLight intensity={1.2} />
         <spotLight
           position={[20, 20, 25]}
           penumbra={1}
-          angle={0.2}
+          angle={0.25}
           color="white"
-          castShadow={!mobile}
-          shadow-mapSize={mobile ? [128, 128] : [256, 256]}
         />
         <directionalLight position={[0, 5, -4]} intensity={2} />
         <Physics gravity={[0, 0, 0]}>
@@ -271,7 +265,7 @@ const TechStack = () => {
         {!mobile && (
           <Environment
             files="/models/char_enviorment.hdr"
-            environmentIntensity={0.5}
+            environmentIntensity={0.4}
             environmentRotation={[0, 4, 2]}
           />
         )}

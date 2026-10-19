@@ -2,10 +2,10 @@ import "./styles/About.css";
 import { TbDatabase, TbCode, TbCertificate, TbSchool } from "react-icons/tb";
 
 const stats = [
-  { icon: TbDatabase, number: "500+", label: "SQL Queries Solved", color: "#38bdf8" },
-  { icon: TbCode, number: "15+", label: "Projects & Utilities", color: "#60a5fa" },
-  { icon: TbCertificate, number: "3+", label: "Industry Certifications", color: "#0ea5e9" },
-  { icon: TbSchool, number: "2027", label: "B.Tech Grad (CSD)", color: "#2563eb" },
+  { icon: TbDatabase, number: "ETL & Spark", label: "Pipelines & Warehousing", color: "#38bdf8" },
+  { icon: TbCode, number: "Python & SQL", label: "Relational & Big Data", color: "#60a5fa" },
+  { icon: TbCertificate, number: "5+", label: "Industry Certifications", color: "#0ea5e9" },
+  { icon: TbSchool, number: "2023 – 2027", label: "B.E. Computer Science & Design", color: "#2563eb" },
 ];
 
 const About = () => (
@@ -13,7 +13,7 @@ const About = () => (
     <div className="about-me">
       <h3 className="title">About Me</h3>
       <p className="para">
-        I am a <span className="about-highlight">B.Tech Computer Science & Design</span> student passionate about <span className="about-highlight">databases, SQL</span>, <span className="about-highlight">Python</span>, and data-driven problem solving. I enjoy architecting practical projects and optimizing data workflows through continuous practice, preparing for data engineering and AI opportunities.
+        Aspiring <span className="about-highlight">Data Engineer</span> and <span className="about-highlight">Computer Science &amp; Design</span> undergraduate with strong foundations in <span className="about-highlight">SQL, Python, Data Warehousing</span>, and <span className="about-highlight">Big Data technologies</span>. Hands-on experience in building ETL pipelines, implementing incremental data loading processes, designing relational database schemas, and processing large datasets using Apache Spark and Spark SQL. Passionate about developing scalable data solutions and leveraging data engineering principles to solve real-world business problems.
       </p>
       <div className="about-stats-grid">
         {stats.map((stat, i) => {

@@ -116,24 +116,39 @@ const Certificates = () => {
     };
   }, []);
 
+  const certRafs = useRef<WeakMap<HTMLElement, number>>(new WeakMap());
+
   const handleMouseMove = (e: React.MouseEvent<HTMLAnchorElement>) => {
     const card = e.currentTarget;
-    const rect = card.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    const centerX = rect.width / 2;
-    const centerY = rect.height / 2;
-    const rotateX = ((y - centerY) / centerY) * -6;
-    const rotateY = ((x - centerX) / centerX) * 6;
+    const clientX = e.clientX;
+    const clientY = e.clientY;
 
-    card.style.setProperty("--rotate-x", `${rotateX}deg`);
-    card.style.setProperty("--rotate-y", `${rotateY}deg`);
-    card.style.setProperty("--glare-x", `${(x / rect.width) * 100}%`);
-    card.style.setProperty("--glare-y", `${(y / rect.height) * 100}%`);
+    const prevRaf = certRafs.current.get(card);
+    if (prevRaf) cancelAnimationFrame(prevRaf);
+
+    const rafId = requestAnimationFrame(() => {
+      const rect = card.getBoundingClientRect();
+      const x = clientX - rect.left;
+      const y = clientY - rect.top;
+      const centerX = rect.width / 2;
+      const centerY = rect.height / 2;
+      const rotateX = ((y - centerY) / centerY) * -6;
+      const rotateY = ((x - centerX) / centerX) * 6;
+
+      card.style.setProperty("--rotate-x", `${rotateX}deg`);
+      card.style.setProperty("--rotate-y", `${rotateY}deg`);
+      card.style.setProperty("--glare-x", `${(x / rect.width) * 100}%`);
+      card.style.setProperty("--glare-y", `${(y / rect.height) * 100}%`);
+      certRafs.current.delete(card);
+    });
+
+    certRafs.current.set(card, rafId);
   };
 
   const handleMouseLeave = (e: React.MouseEvent<HTMLAnchorElement>) => {
     const card = e.currentTarget;
+    const prevRaf = certRafs.current.get(card);
+    if (prevRaf) cancelAnimationFrame(prevRaf);
     card.style.setProperty("--rotate-x", "0deg");
     card.style.setProperty("--rotate-y", "0deg");
   };

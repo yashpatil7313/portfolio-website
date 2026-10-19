@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import "./styles/Landing.css";
 import { useLoading } from "../context/LoadingProvider";
-import { FaGithub, FaLinkedinIn } from "react-icons/fa6";
 
 function useTypingEffect(text: string, delay: number, speed: number, enabled: boolean) {
   const [displayed, setDisplayed] = useState("");
@@ -43,29 +42,9 @@ const Landing = () => {
             <h1 className="landing-typed-name" aria-label="Yash Patil">
               {name}<span className="typing-cursor">|</span>
             </h1>
-            <div className="landing-social-links">
-              <a
-                href="https://github.com/yashpatil7313"
-                target="_blank"
-                rel="noreferrer"
-                className="landing-social-btn"
-                aria-label="GitHub Profile"
-              >
-                <FaGithub />
-              </a>
-              <a
-                href="https://www.linkedin.com/in/yashpatil7313"
-                target="_blank"
-                rel="noreferrer"
-                className="landing-social-btn"
-                aria-label="LinkedIn Profile"
-              >
-                <FaLinkedinIn />
-              </a>
-            </div>
             <div className="landing-status-badge">
               <span className="landing-status-dot"></span>
-              <span>CST Class of 2027</span>
+              <span>CSD '27 · Aspiring Data Engineer</span>
             </div>
           </div>
 

@@ -87,21 +87,25 @@ const WhatIDo = () => {
             <div className="what-corner"></div>
 
             <div className="what-content-in">
-              <h3>ANALYZE</h3>
+              <h3>ENGINEER</h3>
               <h4>Description</h4>
               <p>
-                Turning raw data into clear business insights through SQL, data cleaning, visualization, and practical analysis.
+                Architecting scalable data solutions, ETL pipelines, star schemas, and data warehouses with Apache Spark, Spark SQL, and relational/NoSQL databases.
               </p>
-              <h5>Skillset & tools</h5>
+              <h5>Skillset &amp; tools</h5>
               <div className="what-content-flex">
+                <div className="what-tags">Apache Spark</div>
+                <div className="what-tags">Spark SQL</div>
                 <div className="what-tags">Python</div>
                 <div className="what-tags">SQL</div>
-                <div className="what-tags">MySQL</div>
+                <div className="what-tags">ETL Pipelines</div>
+                <div className="what-tags">Data Warehousing</div>
+                <div className="what-tags">Incremental Loading</div>
                 <div className="what-tags">PostgreSQL</div>
+                <div className="what-tags">MySQL</div>
+                <div className="what-tags">MongoDB</div>
                 <div className="what-tags">Pandas</div>
-                <div className="what-tags">NumPy</div>
                 <div className="what-tags">Power BI</div>
-                <div className="what-tags">Google Looker</div>
               </div>
               <div className="what-arrow"></div>
             </div>
@@ -128,17 +132,20 @@ const WhatIDo = () => {
               <h3>BUILD</h3>
               <h4>Description</h4>
               <p>
-                Creating practical, data-focused applications and continuously expanding my software development skills through real-world projects.
+                Developing end-to-end full-stack platforms, client dashboards, and secure automated web systems with React, Node.js, Express, and Prisma.
               </p>
-              <h5>Skillset & tools</h5>
+              <h5>Skillset &amp; tools</h5>
               <div className="what-content-flex">
-                <div className="what-tags">Python</div>
-                <div className="what-tags">FastAPI</div>
                 <div className="what-tags">React</div>
-                <div className="what-tags">AI / NLP</div>
-                <div className="what-tags">DBMS</div>
-                <div className="what-tags">Git</div>
-                <div className="what-tags">GitHub</div>
+                <div className="what-tags">TypeScript</div>
+                <div className="what-tags">Node.js</div>
+                <div className="what-tags">Express.js</div>
+                <div className="what-tags">Prisma</div>
+                <div className="what-tags">JWT &amp; Auth</div>
+                <div className="what-tags">Razorpay</div>
+                <div className="what-tags">Git &amp; GitHub</div>
+                <div className="what-tags">Jupyter Notebook</div>
+                <div className="what-tags">VS Code</div>
               </div>
               <div className="what-arrow"></div>
             </div>

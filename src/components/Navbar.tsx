@@ -15,6 +15,7 @@ const NAV_ITEMS = [
   { id: "about", label: "ABOUT" },
   { id: "work", label: "WORK" },
   { id: "certificates", label: "CERTIFICATES" },
+  { id: "resume", label: "RESUME" },
   { id: "contact", label: "CONTACT" },
 ];
 
@@ -32,29 +33,49 @@ const Navbar = () => {
   }, [isLightTheme]);
 
   useEffect(() => {
-    const handleScroll = () => {
-      const scrollY = window.scrollY;
-      setIsScrolled(scrollY > 40);
+    let ticking = false;
+    let cachedOffsets: { id: string; top: number; height: number }[] = [];
 
-      // Detect active section based on scroll position
-      const triggerPos = scrollY + 280;
-      let current = "";
-      for (const item of NAV_ITEMS) {
+    const updateOffsets = () => {
+      cachedOffsets = NAV_ITEMS.map((item) => {
         const el = document.getElementById(item.id);
         if (el) {
-          const top = el.offsetTop;
-          const height = el.offsetHeight;
-          if (triggerPos >= top && triggerPos < top + height) {
-            current = item.id;
-          }
+          return { id: item.id, top: el.offsetTop, height: el.offsetHeight };
         }
+        return { id: item.id, top: 0, height: 0 };
+      });
+    };
+
+    updateOffsets();
+    window.addEventListener("resize", updateOffsets, { passive: true });
+
+    const handleScroll = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          const scrollY = window.scrollY;
+          const nextScrolled = scrollY > 40;
+          setIsScrolled((prev) => (prev !== nextScrolled ? nextScrolled : prev));
+
+          const triggerPos = scrollY + 280;
+          let current = "";
+          for (const s of cachedOffsets) {
+            if (s.height > 0 && triggerPos >= s.top && triggerPos < s.top + s.height) {
+              current = s.id;
+            }
+          }
+          setActiveSection((prev) => (prev !== current ? current : prev));
+          ticking = false;
+        });
+        ticking = true;
       }
-      setActiveSection(current);
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
     handleScroll();
-    return () => window.removeEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("resize", updateOffsets);
+    };
   }, []);
 
   // Lock body scroll when mobile menu is open
@@ -182,7 +203,7 @@ const Navbar = () => {
 
         <div className="mobile-drawer-footer">
           <a
-            href="/Yash_Patil_Resume.docx"
+            href="/Yash_Patil_Resume.pdf"
             target="_blank"
             rel="noopener noreferrer"
             className="mobile-drawer-resume"

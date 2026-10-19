@@ -6,86 +6,56 @@ export function initialFX() {
   const main = document.getElementsByTagName("main")[0];
   if (main) main.classList.add("main-active");
 
+  // 1. Navigation Header Drops In
   gsap.fromTo(
-    [".landing-info h3", ".landing-intro h2"],
-    { opacity: 0, y: 80, filter: "blur(5px)" },
+    ".header",
+    { opacity: 0, y: -35 },
     {
       opacity: 1,
-      duration: 1.2,
-      filter: "blur(0px)",
-      ease: "power3.inOut",
       y: 0,
-      stagger: 0.08,
-      delay: 0.3,
+      duration: 0.9,
+      ease: "power3.out",
     }
   );
 
+  // 2. Hero Centerpiece (SQL Developer Cosmic Loop) Expands & Blooms in
   gsap.fromTo(
-    ".landing-intro h1",
-    { opacity: 0 },
+    ".landing-infinity-graphic",
+    { opacity: 0, scale: 0.82, filter: "blur(14px)" },
     {
       opacity: 1,
-      duration: 0.6,
-      ease: "power1.inOut",
-      delay: 0.8,
-    }
-  );
-
-  gsap.fromTo(
-    ".landing-h2-info",
-    { opacity: 0, y: 80, filter: "blur(5px)" },
-    {
-      opacity: 1,
-      duration: 1.2,
+      scale: 1,
       filter: "blur(0px)",
-      ease: "power3.inOut",
-      y: 0,
-      delay: 0.3,
+      duration: 1.4,
+      ease: "power3.out",
+      delay: 0.15,
     }
   );
 
+  // 3. Left Intro Profile Card Glides in from Left with Soft Spring
   gsap.fromTo(
-    ".landing-info-h2",
+    ".landing-intro",
+    { opacity: 0, x: -60, filter: "blur(8px)" },
+    {
+      opacity: 1,
+      x: 0,
+      filter: "blur(0px)",
+      duration: 1.2,
+      ease: "power3.out",
+      delay: 0.2,
+    }
+  );
+
+  // 4. Text Flow Stream Fades in
+  gsap.fromTo(
+    ".text-flow-stream-wrap",
     { opacity: 0, y: 30 },
     {
       opacity: 1,
-      duration: 1.2,
-      ease: "power1.inOut",
       y: 0,
-      delay: 0.8,
+      duration: 1.1,
+      ease: "power2.out",
+      delay: 0.45,
     }
   );
-
-  gsap.fromTo(
-    [".header", ".icons-section", ".nav-fade"],
-    { opacity: 0 },
-    {
-      opacity: 1,
-      duration: 1.2,
-      ease: "power1.inOut",
-      delay: 0.1,
-    }
-  );
-
-  loopTwoLines(".landing-h2-info", ".landing-h2-info-1");
-  loopTwoLines(".landing-h2-1", ".landing-h2-2");
-}
-
-function loopTwoLines(selector1: string, selector2: string) {
-  const el1 = document.querySelector(selector1);
-  const el2 = document.querySelector(selector2);
-  if (!el1 || !el2) return;
-
-  gsap.set(el2, { opacity: 0, y: 80 });
-  const delay = 4;
-
-  const tl = gsap.timeline({ repeat: -1, repeatDelay: 1 });
-
-  // Swap 1: el1 exits up while el2 enters from below — simultaneous
-  tl.to(el1, { y: -80, opacity: 0, duration: 1.2, ease: "power3.inOut", delay })
-    .to(el2, { y: 0, opacity: 1, duration: 1.2, ease: "power3.inOut" }, "<")
-    // Swap 2: el2 exits up while el1 enters from below — simultaneous
-    .set(el1, { y: 80 }, `+=${delay}`)
-    .to(el2, { y: -80, opacity: 0, duration: 1.2, ease: "power3.inOut" })
-    .to(el1, { y: 0, opacity: 1, duration: 1.2, ease: "power3.inOut" }, "<");
 }

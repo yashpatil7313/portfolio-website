@@ -21,9 +21,10 @@
   margin: 0 0 10px;
   color: var(--accentColor);
   font-size: 13px;
-  font-weight: 600;
-  letter-spacing: 0.18em;
+  font-weight: 900;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
+  text-shadow: 0 0 14px rgba(56, 189, 248, 0.5);
 }
 
 .kicker-sparkle {
@@ -34,16 +35,17 @@
 .certificates-section h2 {
   margin: 0 0 12px;
   font-size: clamp(38px, 4.5vw, 68px);
-  font-weight: 500;
-  letter-spacing: -0.02em;
+  font-weight: 900;
+  letter-spacing: -0.025em;
 }
 
 .certificates-subtitle {
   max-width: 640px;
   margin: 0;
   font-size: 16px;
-  line-height: 24px;
-  color: var(--mutedTextColor);
+  line-height: 26px;
+  color: #cbd5e1;
+  font-weight: 500;
 }
 
 .certificates-grid {
@@ -144,32 +146,33 @@
 
 .cert-badge {
   display: inline-block;
-  padding: 2px 8px;
+  padding: 3px 9px;
   border-radius: 6px;
-  background: rgba(14, 165, 233, 0.12);
-  border: 1px solid rgba(56, 189, 248, 0.28);
+  background: rgba(14, 165, 233, 0.16);
+  border: 1px solid rgba(56, 189, 248, 0.38);
   color: var(--cert-color, #7dd3fc);
   font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.05em;
+  font-weight: 800;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
-  margin-bottom: 4px;
+  margin-bottom: 6px;
 }
 
 .certificate-card h3 {
   margin: 0 0 4px;
-  font-size: 17px;
-  font-weight: 600;
+  font-size: 18px;
+  font-weight: 800;
   line-height: 1.35;
-  color: var(--textColor);
+  color: #ffffff;
   white-space: normal;
 }
 
 .certificate-card p {
   margin: 0;
-  color: var(--mutedTextColor);
+  color: #cbd5e1;
   font-size: 13.5px;
-  line-height: 1.4;
+  font-weight: 600;
+  line-height: 1.45;
 }
 
 .cert-arrow-wrap {

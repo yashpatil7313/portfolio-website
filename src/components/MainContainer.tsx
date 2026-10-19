@@ -5,7 +5,7 @@ import Certificates from "./Certificates";
 import Contact from "./Contact";
 import Landing from "./Landing";
 import Navbar from "./Navbar";
-import SocialIcons from "./SocialIcons";
+import ResumeSection from "./ResumeSection";
 import WhatIDo from "./WhatIDo";
 import Work from "./Work";
 import setSplitText from "./utils/splitText";
@@ -67,9 +67,28 @@ const MainContainer = () => {
       unsubscribeLenis = () => window.removeEventListener("scroll", handleScroll);
     }
 
+    const handleGlobalClick = (e: MouseEvent) => {
+      const target = (e.target as HTMLElement).closest(
+        "button, a, .netflix-card, .netflix-pill-btn, .netflix-play-btn, .certificate-card, .about-stat-card, .landing-social-btn, .back-to-top-btn"
+      );
+      if (!target) return;
+
+      const ripple = document.createElement("span");
+      ripple.className = "tactile-click-wave";
+      ripple.style.left = `${e.clientX}px`;
+      ripple.style.top = `${e.clientY}px`;
+      document.body.appendChild(ripple);
+      setTimeout(() => {
+        ripple.remove();
+      }, 650);
+    };
+
+    window.addEventListener("click", handleGlobalClick, { passive: true });
+
     return () => {
       clearTimeout(timeoutId);
       window.removeEventListener("resize", resizeHandler);
+      window.removeEventListener("click", handleGlobalClick);
       unsubscribeLenis?.();
     };
   }, []);
@@ -83,7 +102,6 @@ const MainContainer = () => {
         style={{ transform: "scaleX(0)" }}
       />
       <Navbar />
-      <SocialIcons />
       <div id="smooth-wrapper">
         <div id="smooth-content">
           <div className="container-main">
@@ -97,6 +115,7 @@ const MainContainer = () => {
             <Suspense fallback={<div style={{ height: "50vh" }} />}>
               <TechStack />
             </Suspense>
+            <ResumeSection />
             <Contact />
           </div>
         </div>
